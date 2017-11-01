@@ -1,0 +1,4 @@
+vsBuildActionBuild
+vsBuildActionClean
+vsBuildActionDeploy
+vsBuildActionRebuildAll

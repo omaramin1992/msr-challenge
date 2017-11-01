@@ -1,0 +1,171 @@
+0x40010005
+0x800A01B6
+0x800A1391
+0x800A139E
+0xC0000005
+0xC0000094
+0xC00001A5
+0xC0000409
+14
+15
+ActionMailerNext.Standalone.TemplateResolvingException
+AutoMapper.AutoMapperConfigurationException
+AutoMapper.AutoMapperMappingException
+Autofac.Core.Registration.ComponentNotRegisteredException
+CallbackFS.ECBFSError
+Castle.MicroKernel.ComponentNotFoundException
+ContextSwitchDeadlock
+DevExpress.Xpo.Exceptions.SameTableNameException
+DisconnectedContext
+EmbeddedBreakpoint
+Exception:
+
+System.ArgumentException: Must supply an active image
+Parameter name: activeImage
+Exception:
+
+System.InvalidOperationException: An attempt was made to transition a task to a final state when it had already completed.
+Exception:
+
+System.MissingMethodException: Default constructor not found for type BoardPad.AppLogic.DeviceAccountStateToBooleanConverter
+Exception:
+
+System.MissingMethodException: Default constructor not found for type BoardPad.IOS.Converters.BooleanNotConverterDecorator
+Exception:
+
+System.MissingMethodException: Default constructor not found for type BoardPad.IOS.Converters.BooleanToColour
+Exception:
+
+System.Net.WebException: The remote server returned an error: (500) Internal Server Error.
+Exception:
+
+System.NullReferenceException: Object reference not set to an instance of an object
+Exception:
+
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+IIT.Api.Extensions.HttpResponseException
+Ionic.Zip.ZipException
+LoaderLock
+Microsoft.CSharp.RuntimeBinder.RuntimeBinderException
+Microsoft.Data.Sqlite.SqliteException
+Microsoft.EntityFrameworkCore.DbUpdateException
+Microsoft.Practices.ServiceLocation.ActivationException
+Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException
+Moq.MockException
+Moq.MockVerificationException
+NAudio.MmException
+NUnit.Framework.AssertionException
+NUnit.Framework.SuccessException
+Newtonsoft.Json.JsonReaderException
+Newtonsoft.Json.JsonSerializationException
+Nib.Common.Core.Email.Exceptions.TemplateNotFoundException
+Nib.Comms.Email.Endpoint.Exceptions.TemplateModelCouldNotBeMappedException
+Nib.Online.Common.Infrastructure.FeatureToggles.FeatureValueNotDefinedException
+Nib.Online.Join.Exceptions.InvalidPaymentDateException
+Nib.Products.Interface.Exceptions.RateNotFoundException
+Nib.Public.Web.Common.Infrastructure.FeatureValueInvalidException
+Ninject.ActivationException
+OpenQA.Selenium.ElementNotVisibleException
+OpenQA.Selenium.WebDriverException
+OpenQA.Selenium.WebDriverTimeoutException
+Ploeh.AutoFixture.ObjectCreationException
+QuaystoneV2.Notifications.Domain.Exceptions.ClientNameMustBeSet
+QuaystoneV2.Underwriting.Domain.Exceptions.NoInstalmentPlansAvailable
+RazorEngine.Templating.TemplateCompilationException
+RazorEngine.Templating.TemplateParsingException
+Rhino.Licensing.LicenseExpiredException
+ServiceStack.HttpError
+System.AggregateException
+System.ApplicationException
+System.ArgumentException
+System.ArgumentNullException
+System.ArgumentOutOfRangeException
+System.Collections.Generic.KeyNotFoundException
+System.Configuration.ConfigurationErrorsException
+System.Data.DataException
+System.Data.Entity.Core.EntityCommandExecutionException
+System.Data.Entity.Core.EntityException
+System.Data.Entity.Core.MetadataException
+System.Data.Entity.Infrastructure.DbUpdateConcurrencyException
+System.Data.Entity.Infrastructure.DbUpdateException
+System.Data.Entity.Validation.DbEntityValidationException
+System.Data.Odbc.OdbcException
+System.Data.SqlClient.SqlException
+System.DivideByZeroException
+System.Exception
+System.FormatException
+System.IO.DirectoryNotFoundException
+System.IO.FileLoadException
+System.IO.FileNotFoundException
+System.IO.IOException
+System.IndexOutOfRangeException
+System.InvalidCastException
+System.InvalidOperationException
+System.MissingMethodException
+System.Net.Http.HttpRequestException
+System.Net.Mail.SmtpFailedRecipientException
+System.Net.Sockets.SocketException
+System.Net.WebException
+System.NotImplementedException
+System.NotSupportedException
+System.NullReferenceException
+System.ObjectDisposedException
+System.OutOfMemoryException
+System.OverflowException
+System.Reflection.TargetException
+System.Reflection.TargetInvocationException
+System.Reflection.TargetParameterCountException
+System.Runtime.InteropServices.COMException
+System.Runtime.InteropServices.ExternalException
+System.Security.Cryptography.CryptographicException
+System.ServiceModel.FaultException
+System.StackOverflowException
+System.Threading.ThreadAbortException
+System.Threading.ThreadStateException
+System.TypeInitializationException
+System.TypeLoadException
+System.UnauthorizedAccessException
+System.UriFormatException
+System.Web.HttpCompileException
+System.Web.HttpException
+System.Web.HttpParseException
+System.Web.HttpUnhandledException
+System.Web.Mvc.HttpAntiForgeryException
+System.Windows.Markup.XamlParseException
+Telerik.Web.UI.GridException
+Unhandled Exception:
+
+BoardPad.AppLogic.Models.Navigation.PopupAlreadyActiveException: Existing popup already active. It must be dismissed before second can activate
+Unhandled Exception:
+
+System.ArgumentException: A filter context must exist in the arguments
+Parameter name: args
+Unhandled Exception:
+
+System.ArgumentNullException: Value cannot be null.
+Parameter name: owner
+Unhandled Exception:
+
+System.Collections.Generic.KeyNotFoundException: Could not find view for BoardPad.AppLogic.ViewModels.Filtering.ReadingRoomFilteringViewModel
+Unhandled Exception:
+
+System.Exception: Failed to marshal the Objective-C object 0x811253e0 (type: ActiveImageButton). Could not find an existing managed instance for this object, nor was it possible to create a new managed instance (because the type 'BoardPad.IOS.Styling.Controls.ActiveImageButton' does not have a constructor that takes one IntPtr argument).
+Unhandled Exception:
+
+System.InvalidCastException: Specified cast is not valid.
+Unhandled Exception:
+
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+WebAutomation.Core.TestAssertionException
+WebAutomation.Core.WebAutomationUsageException
+dbgEventReasonAttachProgram
+dbgEventReasonBreakpoint
+dbgEventReasonEndProgram
+dbgEventReasonExceptionNotHandled
+dbgEventReasonExceptionThrown
+dbgEventReasonGo
+dbgEventReasonLaunchProgram
+dbgEventReasonNone
+dbgEventReasonStep
+dbgEventReasonStopDebugging
+dbgEventReasonUserBreak

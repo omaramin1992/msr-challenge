@@ -1,4 +1,5 @@
 
+
 /**
  * Copyright 2016 University of Zurich
  * 
@@ -15,8 +16,7 @@
  * the License.
  */
 
-import examples.GettingStarted;
-import examples.GettingStartedContexts;
+
 
 public class RunMe {
 
@@ -31,11 +31,11 @@ public class RunMe {
 	/*
 	 * download the context data and follow the same instructions as before.
 	 */
-	public static String contextsDir = "Contexts-170301";
+//	public static String contextsDir = "Contexts-170301";
 
 	public static void main(String[] args) {
 
 		new GettingStarted(eventsDir).run();
-		new GettingStartedContexts(contextsDir).run();
+//		new GettingStartedContexts(contextsDir).run();
 	}
 }
