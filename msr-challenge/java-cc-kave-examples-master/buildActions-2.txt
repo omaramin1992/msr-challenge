@@ -1,0 +1,3 @@
+vsBuildActionBuild
+vsBuildActionClean
+vsBuildActionRebuildAll

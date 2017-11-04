@@ -1,0 +1,368 @@
+0 of 31 Warnings
+About GhostDoc Pro
+Add Reference...
+AltEnter
+Android SDK Manager...
+Apollo
+Back
+Build
+Build Solution
+BulbAction:1:JetBrains.PsiFeatures.VisualStudio.SinceVs10.NuGet.NuGetBrowser.QuickFixes.EntityFromNuGetImporterBase+TypeFromNuGetImportAction
+BulbAction:1:JetBrains.ReSharper.Daemon.CodeStyle.ContextActions.SelectCodeStyleSettingContextAction
+BulbAction:1:JetBrains.ReSharper.Feature.Services.QuickFixes.Scoped.Popups.ScopedPopupAction
+BulbAction:1:JetBrains.ReSharper.InplaceRefactorings.DoInplaceRefactoringContextActionBase+InplaceRefactoringBulbAction
+BulbAction:1:JetBrains.ReSharper.Intentions.CSharp.ContextActions.Misc.EvaluateExpressionAction
+BulbAction:1:JetBrains.ReSharper.Intentions.CSharp.QuickFixes.ImplementMemberFix
+BulbAction:1:JetBrains.ReSharper.Intentions.CSharp.QuickFixes.InvertIfFix
+BulbAction:1:JetBrains.ReSharper.Intentions.CSharp.QuickFixes.MakeClassStaticFix
+BulbAction:1:JetBrains.ReSharper.Intentions.CSharp.QuickFixes.OptimizeImportsFix+project
+BulbAction:1:JetBrains.ReSharper.Intentions.CSharp.QuickFixes.OptimizeImportsFix+solution
+BulbAction:1:JetBrains.ReSharper.Intentions.CSharp.QuickFixes.ReplaceWithBoolConstFix
+BulbAction:1:JetBrains.ReSharper.Intentions.CSharp.QuickFixes.ToggleVarFix+solution
+BulbAction:1:JetBrains.ReSharper.Intentions.ContextActions.Inject.InjectLanguageItem
+BulbAction:1:JetBrains.ReSharper.Intentions.Css.QuickFixes.CreateFallbackColorFix
+BulbAction:1:JetBrains.ReSharper.Intentions.Css.QuickFixes.EnableCssLanguageVersionFix
+BulbAction:1:JetBrains.ReSharper.Intentions.JavaScript.ContextActions.ReplaceStringLiteralQuotesAction
+BulbAction:1:JetBrains.ReSharper.Intentions.JavaScript.ContextActions.TypeScript.TsChangeModifierAction+ChangeModifierAction
+BulbAction:1:JetBrains.ReSharper.Intentions.JavaScript.QuickFixes.Json.JsonSchemaIncompatibilitiesFix+file
+BulbAction:1:JetBrains.ReSharper.Intentions.JavaScript.QuickFixes.Json.JsonSchemaIncompatibilitiesFixBulbAction
+BulbAction:1:JetBrains.ReSharper.Intentions.JavaScript.QuickFixes.StringLiteralQuotesFix
+BulbAction:1:JetBrains.ReSharper.Intentions.Options.ChangeConfigurableSeverityAction
+BulbAction:1:JetBrains.ReSharper.Intentions.QuickFixes.CheckNamespaceQuickFix
+BulbAction:1:JetBrains.ReSharper.Intentions.QuickFixes.ClrUseStringInterpolationFix
+BulbAction:1:JetBrains.ReSharper.Intentions.QuickFixes.ReferenceModuleAndTypeFixItem
+BulbAction:1:ReSharper.Exceptional.QuickFixes.AddExceptionDocumentationFix
+Cancel (Esc)
+Changes
+Check for Updates
+CheckUpdatesManually
+Class
+Clean
+Clean Solution
+Cleanup Code
+CleanupCode
+Close
+Close All Documents
+Close Solution
+Collapse All
+Comm_it All
+Comment Selection
+Commit All
+Commit All and Push
+CompleteCodeBasic
+Completion:1:Automatic code completion
+Connect to Team Project
+Continue
+ErrorsView.IgnoreAllSuchIssuesPopup
+ErrorsView.ReanalyzeFilesWithErrors
+Escape
+Exclude From Project
+Existing Project...
+Exit
+ExtensionManager
+Extensions and Updates...
+Firefox
+Go To Declaration
+Go To Definition
+Google Chrome
+GotoBase
+GotoDeclaration
+GotoNextErrorInSolution
+GotoNextHighlight
+GotoNextMethod
+Help
+Include In Project
+Initialize Interactive with Project
+Install
+Interface
+Internet Explorer
+KaVE.VS.FeedbackGenerator.UploadWizard
+Manage Bower Packages...
+Manage Connections
+Manage NuGet Packages for Solution...
+Manage NuGet Packages...
+Modified Extensions:1:cs
+Modified Extensions:1:cs+config+js
+Modified Extensions:1:css
+Modified Extensions:1:json
+Modified Extensions:1:ts
+More Emulators...
+Move
+Navigate Backward
+NavigateFromDeclaration
+New Folder
+New Folder (Ctrl+K, Ctrl+F)
+New Project...
+Next (Ctrl+Alt+PgDn)
+NuGetBrowser:1:PackageInstallation
+NuGetBrowser:1:SearchQuery
+NuGetBrowser:1:ShowLookupTab
+Open Folder in File Explorer
+Open Project...
+Open with PowerShell ISE
+Options
+Options...
+Pending Changes
+PostfixTemplates:1:Present
+Project...
+Project/Solution...
+Properties
+Publish...
+QuickWatch...
+Rebuild
+Rebuild Solution
+Reference...
+Remove
+Remove last set, or Alt+Click to remove all added
+Rename
+Repository...
+Rest_art
+Restart
+Restore Packages
+Run Code Analysis
+Save All
+Save Domain\Common\AddressSettings.cs
+Set as StartUp Project
+Show All Files
+Show Project Dependency Diagram
+Show result context
+ShowEnterLicense
+ShowOptions
+ShowProjectDependencyGraph
+SolBuilderDuo.Build
+SolBuilderDuo.ClassViewProjectBuild
+SolBuilderDuo.Rebuild
+Solution Configurations
+SolutionBuilderTres:1:Build
+SolutionBuilderTres:1:BuildSolution
+SolutionBuilderTres:1:RebuildSolution
+Source Control Explorer
+Start
+Stop Debugging
+StructuralNavigation
+SuperFind...
+Template_00
+Template_01
+Template_03
+Template_04
+TextControl.Backspace
+TextControl.Copy
+TextControl.Cut
+TextControl.Delete
+TextControl.Down
+TextControl.Enter
+TextControl.PageDown
+TextControl.PageUp
+TextControl.Paste
+TextControl.Tab
+TextControl.Up
+Toggle Completion Mode
+Undo
+Undo Changes...
+Update
+Update BundlerMinifier.Core to version 2.2.281.
+View in Browser (Firefox)
+View in Object Browser
+VsAction:1:Build.BuildSelection
+VsAction:1:Build.BuildSolution
+VsAction:1:Build.CleanSolution
+VsAction:1:Build.RebuildSolution
+VsAction:1:ClassViewContextMenus.ClassViewMultiselectProjectreferencesItems.Properties
+VsAction:1:ClassViewContextMenus.ClassViewProject.Analyze.RunCodeAnalysis
+VsAction:1:ClassViewContextMenus.ClassViewProject.Build
+VsAction:1:ClassViewContextMenus.ClassViewProject.Clean
+VsAction:1:ClassViewContextMenus.ClassViewProject.Publish
+VsAction:1:ClassViewContextMenus.ClassViewProject.Rebuild
+VsAction:1:Debug.LocationToolbar.ProcessCombo
+VsAction:1:Debug.LocationToolbar.StackFrameCombo
+VsAction:1:Debug.LocationToolbar.ThreadCombo
+VsAction:1:Debug.QuickWatch
+VsAction:1:Debug.Restart
+VsAction:1:Debug.Start
+VsAction:1:Debug.StartDebugTarget
+VsAction:1:Debug.StartupProjects
+VsAction:1:Debug.StepInto
+VsAction:1:Debug.StepOver
+VsAction:1:Debug.StopDebugging
+VsAction:1:Edit.BreakLine
+VsAction:1:Edit.CharLeft
+VsAction:1:Edit.CharLeftExtend
+VsAction:1:Edit.CharRight
+VsAction:1:Edit.CharRightExtend
+VsAction:1:Edit.CommentSelection
+VsAction:1:Edit.Copy
+VsAction:1:Edit.Cut
+VsAction:1:Edit.Delete
+VsAction:1:Edit.DeleteBackwards
+VsAction:1:Edit.Find
+VsAction:1:Edit.FormatDocument
+VsAction:1:Edit.GoToDefinition
+VsAction:1:Edit.InsertSnippet
+VsAction:1:Edit.InsertTab
+VsAction:1:Edit.LineDown
+VsAction:1:Edit.LineDownExtend
+VsAction:1:Edit.LineOpenAbove
+VsAction:1:Edit.LineUp
+VsAction:1:Edit.LineUpExtend
+VsAction:1:Edit.OvertypeMode
+VsAction:1:Edit.PageDown
+VsAction:1:Edit.PageUp
+VsAction:1:Edit.Paste
+VsAction:1:Edit.Redo
+VsAction:1:Edit.SelectAll
+VsAction:1:Edit.SelectionCancel
+VsAction:1:Edit.ToggleBookmark
+VsAction:1:Edit.ToggleCompletionMode
+VsAction:1:Edit.UncommentSelection
+VsAction:1:Edit.Undo
+VsAction:1:Edit.WordNext
+VsAction:1:Edit.WordNextExtend
+VsAction:1:Edit.WordPrevious
+VsAction:1:Edit.WordPreviousExtend
+VsAction:1:File.AddExistingProject
+VsAction:1:File.AddNewProject
+VsAction:1:File.CloseSolution
+VsAction:1:File.Exit
+VsAction:1:File.NewProject
+VsAction:1:File.NewRepository
+VsAction:1:File.OpenProject
+VsAction:1:File.Rename
+VsAction:1:File.SaveAll
+VsAction:1:File.SaveSelectedItems
+VsAction:1:File.ViewinBrowser
+VsAction:1:Help.F1Help
+VsAction:1:OtherContextMenus.BookmarkWindow.Rename
+VsAction:1:OzCodeMenu.Options
+VsAction:1:Project.AddClass
+VsAction:1:Project.AddReference
+VsAction:1:Project.ExcludeFromProject
+VsAction:1:Project.IncludeInProject
+VsAction:1:Project.ManageNuGetPackages
+VsAction:1:Project.NewFolder
+VsAction:1:Project.SetasStartUpProject
+VsAction:1:Project.ShowAllFiles
+VsAction:1:ProjectandSolutionContextMenus.Item.OpenwithPowerShellISE
+VsAction:1:ProjectandSolutionContextMenus.Item.RestorePackages
+VsAction:1:ProjectandSolutionContextMenus.Project.Add.AddReference
+VsAction:1:ProjectandSolutionContextMenus.Project.ManageBowerPackages
+VsAction:1:ProjectandSolutionContextMenus.Project.OpenFolderinFileExplorer
+VsAction:1:ProjectandSolutionContextMenus.Project.ResetC#InteractiveFromProject
+VsAction:1:ProjectandSolutionContextMenus.Solution.RestoreNuGetPackages
+VsAction:1:Supercharger.SuperFind
+VsAction:1:TSqlEditorDatabaseCombo
+VsAction:1:Team.Git.Commit
+VsAction:1:Team.Git.CommitAndPush
+VsAction:1:Team.Git.Undo
+VsAction:1:Tools.AndroidSDKManager
+VsAction:1:Tools.ExtensionsandUpdates
+VsAction:1:Tools.ManageNuGetPackagesforSolution
+VsAction:1:Tools.Options
+VsAction:1:Tools.SubMain.GhostDoc.About
+VsAction:1:Tools.SubMain.GhostDoc.CheckForUpdates
+VsAction:1:Tools.SubMain.GhostDoc.Configure
+VsAction:1:View.NavigateBackward
+VsAction:1:View.ObjectBrowsingScope
+VsAction:1:View.StartPage
+VsAction:1:View.URL
+VsAction:1:Warnings
+VsAction:1:Window.ActivateDocumentWindow
+VsAction:1:Window.CloseAllDocuments
+VsAction:1:Window.CloseDocumentWindow
+VsAction:1:Window.NextDocumentWindowNav
+VsAction:1:Window.PreviousDocumentWindowNav
+VsShowObjectBrowser
+_Restore
+_refreshButton
+_settingsButton
+unknown button
+{1492DB0A-85A2-4E43-BF0D-CE55B89A8CC6}:2:ProjectandSolutionContextMenus.Project.ResetC#InteractiveFromProject
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:103:Edit.SelectionCancel
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:1109:Project.IncludeInProject
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:1110:Project.ExcludeFromProject
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:1113:Project.AddReference
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:136:Edit.CommentSelection
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:137:Edit.UncommentSelection
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:143:Edit.FormatDocument
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:1635:ProjectandSolutionContextMenus.Project.OpenFolderinFileExplorer
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:1648:ClassViewContextMenus.ClassViewProject.Analyze.RunCodeAnalysis
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:2006:ClassViewContextMenus.ClassViewProject.Publish
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:2211:Warnings
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:2245:View.StartPage
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:2303:Edit.ToggleCompletionMode
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:323:Edit.InsertSnippet
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:559:OtherContextMenus.BookmarkWindow.Rename
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:57:Edit.OvertypeMode
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:600:Project.ShowAllFiles
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:67:Edit.LineOpenAbove
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:76:Edit.ToggleBookmark
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:93:Edit.WordPrevious
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:94:Edit.WordPreviousExtend
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:96:Edit.WordNext
+{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:97:Edit.WordNextExtend
+{1CFA0A04-4933-454A-A332-2348CB39CB40}:6:Tools.AndroidSDKManager
+{25FD982B-8CAE-4CBD-A440-E03FFCCDE106}:256:Project.ManageNuGetPackages
+{25FD982B-8CAE-4CBD-A440-E03FFCCDE106}:512:Tools.ManageNuGetPackagesforSolution
+{25FD982B-8CAE-4CBD-A440-E03FFCCDE106}:768:ProjectandSolutionContextMenus.Solution.RestoreNuGetPackages
+{2A8866DC-7BDE-4DC8-A360-A60679534384}:10:ProjectandSolutionContextMenus.Project.Add.AddReference
+{2B92591F-DE50-467C-898F-ABB130F4533F}:1:ProjectandSolutionContextMenus.Item.OpenwithPowerShellISE
+{57735D06-C920-4415-A2E0-7D6E6FBDFA99}:4096:Team.Git.Undo
+{57735D06-C920-4415-A2E0-7D6E6FBDFA99}:4098:Team.Git.Commit
+{57735D06-C920-4415-A2E0-7D6E6FBDFA99}:4140:Team.Git.CommitAndPush
+{57735D06-C920-4415-A2E0-7D6E6FBDFA99}:4160:File.NewRepository
+{5AA8A2FD-A6CA-43FF-AB7B-79C4E55BCB68}:8196:Tools.SubMain.GhostDoc.Configure
+{5AA8A2FD-A6CA-43FF-AB7B-79C4E55BCB68}:8209:Tools.SubMain.GhostDoc.About
+{5AA8A2FD-A6CA-43FF-AB7B-79C4E55BCB68}:8211:Tools.SubMain.GhostDoc.CheckForUpdates
+{5DD0BB59-7076-4C59-88D3-DE36931F63F0}:3000:Tools.ExtensionsandUpdates
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:1124:Window.NextDocumentWindowNav
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:1125:Window.PreviousDocumentWindowNav
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:150:File.Rename
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:15:Edit.Copy
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:16:Edit.Cut
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:179:Debug.StopDebugging
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:17:Edit.Delete
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:216:File.NewProject
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:217:File.OpenProject
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:219:File.CloseSolution
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:224:File.SaveAll
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:245:Project.NewFolder
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:246:Project.SetasStartUpProject
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:248:Debug.StepInto
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:249:Debug.StepOver
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:254:Debug.QuickWatch
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:264:Tools.Options
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:26:Edit.Paste
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:289:Window.ActivateDocumentWindow
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:295:Debug.Start
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:296:Debug.Restart
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:29:Edit.Redo
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:31:Edit.SelectAll
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:331:File.SaveSelectedItems
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:334:File.ViewinBrowser
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:377:Help.F1Help
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:397:ClassViewContextMenus.ClassViewMultiselectProjectreferencesItems.Properties
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:43:Edit.Undo
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:658:Window.CloseDocumentWindow
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:772:File.AddNewProject
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:773:File.AddExistingProject
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:809:View.NavigateBackward
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:882:Build.BuildSolution
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:883:Build.RebuildSolution
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:885:Build.CleanSolution
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:886:Build.BuildSelection
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:892:ClassViewContextMenus.ClassViewProject.Build
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:893:ClassViewContextMenus.ClassViewProject.Rebuild
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:895:ClassViewContextMenus.ClassViewProject.Clean
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:935:Edit.GoToDefinition
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:946:Project.AddClass
+{5EFC7975-14BC-11CF-9B2B-00AA00573819}:97:Edit.Find
+{6E87CFAD-6C05-4ADF-9CD7-3B7943875B7C}:1280:Debug.StartupProjects
+{6E87CFAD-6C05-4ADF-9CD7-3B7943875B7C}:257:Debug.StartDebugTarget
+{7678AC6D-A98D-48E2-B1EB-66BD053D9278}:8245:Supercharger.SuperFind
+{7A8CDA08-5EE9-40D8-ADF9-9E2CEE6B1BB9}:519:OzCodeMenu.Options
+{B371C497-6D81-4B13-9DB8-8E3E6ABAD0C3}:786:TSqlEditorDatabaseCombo
+{B92A417B-195E-41E4-9391-64F7D025020D}:257:ProjectandSolutionContextMenus.Item.RestorePackages
+{B92A417B-195E-41E4-9391-64F7D025020D}:277:ProjectandSolutionContextMenus.Project.ManageBowerPackages
+{C9DD4A59-47FB-11D2-83E7-00C04F9902C1}:278:Debug.LocationToolbar.ProcessCombo
+{C9DD4A59-47FB-11D2-83E7-00C04F9902C1}:280:Debug.LocationToolbar.ThreadCombo
+{C9DD4A59-47FB-11D2-83E7-00C04F9902C1}:288:Debug.LocationToolbar.StackFrameCombo
+{E8B06F44-6D01-11D2-AA7D-00C04F990343}:207:View.URL

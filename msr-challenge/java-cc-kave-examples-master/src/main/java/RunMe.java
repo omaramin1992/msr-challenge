@@ -26,7 +26,7 @@ public class RunMe {
 	 * includes a bunch of folders that have dates as names and that contain .zip
 	 * files.
 	 */
-	public static String eventsDir = "Events-170301";
+	public static String eventsDir = "Events-170301/2016-09-26";
 
 	/*
 	 * download the context data and follow the same instructions as before.

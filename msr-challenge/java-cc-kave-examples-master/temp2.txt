@@ -1,0 +1,26 @@
+looking (recursively) for events in folder /home/antos-asus/Desktop/data mining project/msr-challenge/msr-challenge/java-cc-kave-examples-master/Events-170301/2016-09-26
+
+#### processing user zip: 208.zip #####
+
+#### processing user zip: 0.zip #####
+
+#### processing user zip: 100.zip #####
+Couldn't process userzip 100.zip event 1983
+Exception java.time.DateTimeException: Invalid value for Year (valid values -999999999 - 999999999): -1000000000
+Couldn't process userzip 100.zip event 2194
+Exception java.time.DateTimeException: Invalid value for Year (valid values -999999999 - 999999999): -1000000000
+Couldn't process userzip 100.zip event 3675
+Exception java.time.DateTimeException: Invalid value for Year (valid values -999999999 - 999999999): -1000000000
+Couldn't process userzip 100.zip event 3685
+Exception java.time.DateTimeException: Invalid value for Year (valid values -999999999 - 999999999): -1000000000
+Couldn't process userzip 100.zip event 3876
+Exception java.time.DateTimeException: Invalid value for Year (valid values -999999999 - 999999999): -1000000000
+Couldn't process userzip 100.zip event 3885
+Exception java.time.DateTimeException: Invalid value for Year (valid values -999999999 - 999999999): -1000000000
+Couldn't process userzip 100.zip event 4023
+Exception java.time.DateTimeException: Invalid value for Year (valid values -999999999 - 999999999): -1000000000
+Couldn't process userzip 100.zip event 4121
+Exception java.time.DateTimeException: Invalid value for Year (valid values -999999999 - 999999999): -1000000000
+Couldn't process userzip 100.zip event 4236
+Exception java.time.DateTimeException: Invalid value for Year (valid values -999999999 - 999999999): -1000000000
+

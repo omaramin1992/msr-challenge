@@ -81,11 +81,11 @@ public class GettingStarted {
 		}
 		
 		try {
-			Files.write(Paths.get("commandIDS.txt"), commandIDSet);
-			Files.write(Paths.get("buildScopes.txt"), buildScopeSet);
-			Files.write(Paths.get("buildActions.txt"), buildActionSet);
-			Files.write(Paths.get("dbgReasons.txt"), dbgReasonSet);
-			Files.write(Paths.get("dbgActions.txt"), dbgActionSet);		
+			Files.write(Paths.get("commandIDS-2.txt"), commandIDSet);
+			Files.write(Paths.get("buildScopes-2.txt"), buildScopeSet);
+			Files.write(Paths.get("buildActions-2.txt"), buildActionSet);
+			Files.write(Paths.get("dbgReasons-2.txt"), dbgReasonSet);
+			Files.write(Paths.get("dbgActions-2.txt"), dbgActionSet);		
 		} catch (Exception e) {
 			System.err.println("Error trying to output the sets to files.\nException " + e);
 		}
@@ -98,20 +98,26 @@ public class GettingStarted {
 			// ... and iterate over content.
 			// the iteration will stop after 200 events to speed things up.
 //			while (ra.hasNext() && (numProcessedEvents++ < 200)) {
-//			int i = 0;
+			int i = 0;
 			while (ra.hasNext()) {
 				/*
 				 * within the userZip, each stored event is contained as a single file that
 				 * contains the Json representation of a subclass of IDEEvent.
 				 */
-				IDEEvent e = ra.getNext(IDEEvent.class);
-				/**NOTE
-				 *  "Not all event bindings are very stable already, reading the JSON helps debugging possible bugs in the bindings"
-				 *  We may need to add the extra steps of reading plain and processing JSON, as in EventExamples.java -> readPlainEvents()
-				 */
-				// the events can then be processed individually
-				processEvent(e);
-//				System.out.println(++i);
+				try {
+					IDEEvent e = ra.getNext(IDEEvent.class);
+					/**NOTE
+					 *  "Not all event bindings are very stable already, reading the JSON helps debugging possible bugs in the bindings"
+					 *  We may need to add the extra steps of reading plain and processing JSON, as in EventExamples.java -> readPlainEvents()
+					 */
+					// the events can then be processed individually
+					processEvent(e);
+					++i;
+//					System.out.println(i);
+				}
+				catch (Exception e) {
+					System.err.println("Couldn't process userzip " + userZip + " event " + i + "\nException " + e);					
+				}
 			}
 			ra.close();
 		} catch (Exception e) {
