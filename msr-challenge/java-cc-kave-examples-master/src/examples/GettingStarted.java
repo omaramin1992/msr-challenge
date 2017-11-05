@@ -122,6 +122,13 @@ public class GettingStarted {
 		for (String userZip : userZips) {
 			currentUserPosition = Positions.Unknown;
 			currentUserTable = new EnumMap<MSRCommandType, EnumMap<Positions, BigInteger>>(MSRCommandType.class);
+			for(MSRCommandType c : MSRCommandType.values()) {
+				EnumMap<Positions, BigInteger> temp = new EnumMap<Positions, BigInteger>(Positions.class);
+				for(Positions p : Positions.values()) {
+					temp.put(p, new BigInteger("0"));
+				}
+				currentUserTable.put(c, temp);
+			}			
 			System.out.printf("\n#### processing user zip: %s #####\n", userZip);
 			processUserZip(userZip);
 			copyCurrentUserTableToOutput();
