@@ -255,10 +255,12 @@ public class GettingStarted {
 	}
 
 	private void process(UserProfileEvent e) {
-		if(e.Position != currentUserPosition) {
-			Positions old = currentUserPosition;
-			currentUserPosition = e.Position;
-			remakeCurrentUserOutputMap(old);
+		if (null != e.Position) {
+			if (e.Position != currentUserPosition) {
+				Positions old = currentUserPosition;
+				currentUserPosition = e.Position;
+				remakeCurrentUserOutputMap(old);
+			}
 		}
 	}
 	
@@ -302,52 +304,54 @@ public class GettingStarted {
 		
 		MSRCommandType temp = MSRCommandType.unknown;
 		
-		//buildScopeStrings[0] is garbage
-		if (e.Scope.equalsIgnoreCase(buildScopeStrings[1])) {
-			//Batch
-			if (e.Action.equalsIgnoreCase(buildActionStrings[0])) {
-				//Build
-				temp = MSRCommandType.BatchBuild;
-			} else if (e.Action.equalsIgnoreCase(buildActionStrings[1])) {
-				//Clean
-				temp = MSRCommandType.BatchClean;
-			} else if (e.Action.equalsIgnoreCase(buildActionStrings[2])) {
-				//Deploy
-				temp = MSRCommandType.BatchDeploy;
-			} else if (e.Action.equalsIgnoreCase(buildActionStrings[3])) {
-				//Deploy
-				temp = MSRCommandType.BatchRebuildAll;
+		if ((null != e.Scope) && (null != e.Action)) {
+			//buildScopeStrings[0] is garbage
+			if (e.Scope.equalsIgnoreCase(buildScopeStrings[1])) {
+				//Batch
+				if (e.Action.equalsIgnoreCase(buildActionStrings[0])) {
+					//Build
+					temp = MSRCommandType.BatchBuild;
+				} else if (e.Action.equalsIgnoreCase(buildActionStrings[1])) {
+					//Clean
+					temp = MSRCommandType.BatchClean;
+				} else if (e.Action.equalsIgnoreCase(buildActionStrings[2])) {
+					//Deploy
+					temp = MSRCommandType.BatchDeploy;
+				} else if (e.Action.equalsIgnoreCase(buildActionStrings[3])) {
+					//Deploy
+					temp = MSRCommandType.BatchRebuildAll;
+				}
+			} else if (e.Scope.equalsIgnoreCase(buildScopeStrings[2])) {
+				//Project
+				if (e.Action.equalsIgnoreCase(buildActionStrings[0])) {
+					//Build
+					temp = MSRCommandType.ProjectBuild;
+				} else if (e.Action.equalsIgnoreCase(buildActionStrings[1])) {
+					//Clean
+					temp = MSRCommandType.ProjectClean;
+				} else if (e.Action.equalsIgnoreCase(buildActionStrings[2])) {
+					//Deploy
+					temp = MSRCommandType.ProjectDeploy;
+				} else if (e.Action.equalsIgnoreCase(buildActionStrings[3])) {
+					//Deploy
+					temp = MSRCommandType.ProjectRebuildAll;
+				}			
+			} else if (e.Scope.equalsIgnoreCase(buildScopeStrings[3])) {
+				//Solution
+				if (e.Action.equalsIgnoreCase(buildActionStrings[0])) {
+					//Build
+					temp = MSRCommandType.SolutionBuild;
+				} else if (e.Action.equalsIgnoreCase(buildActionStrings[1])) {
+					//Clean
+					temp = MSRCommandType.SolutionClean;
+				} else if (e.Action.equalsIgnoreCase(buildActionStrings[2])) {
+					//Deploy
+					temp = MSRCommandType.SolutionDeploy;
+				} else if (e.Action.equalsIgnoreCase(buildActionStrings[3])) {
+					//Deploy
+					temp = MSRCommandType.SolutionRebuildAll;
+				}			
 			}
-		} else if (e.Scope.equalsIgnoreCase(buildScopeStrings[2])) {
-			//Project
-			if (e.Action.equalsIgnoreCase(buildActionStrings[0])) {
-				//Build
-				temp = MSRCommandType.ProjectBuild;
-			} else if (e.Action.equalsIgnoreCase(buildActionStrings[1])) {
-				//Clean
-				temp = MSRCommandType.ProjectClean;
-			} else if (e.Action.equalsIgnoreCase(buildActionStrings[2])) {
-				//Deploy
-				temp = MSRCommandType.ProjectDeploy;
-			} else if (e.Action.equalsIgnoreCase(buildActionStrings[3])) {
-				//Deploy
-				temp = MSRCommandType.ProjectRebuildAll;
-			}			
-		} else if (e.Scope.equalsIgnoreCase(buildScopeStrings[3])) {
-			//Solution
-			if (e.Action.equalsIgnoreCase(buildActionStrings[0])) {
-				//Build
-				temp = MSRCommandType.SolutionBuild;
-			} else if (e.Action.equalsIgnoreCase(buildActionStrings[1])) {
-				//Clean
-				temp = MSRCommandType.SolutionClean;
-			} else if (e.Action.equalsIgnoreCase(buildActionStrings[2])) {
-				//Deploy
-				temp = MSRCommandType.SolutionDeploy;
-			} else if (e.Action.equalsIgnoreCase(buildActionStrings[3])) {
-				//Deploy
-				temp = MSRCommandType.SolutionRebuildAll;
-			}			
 		}
 		currentUserTable.get(temp).get(currentUserPosition).add(new BigInteger("1"));
 	}
@@ -355,36 +359,38 @@ public class GettingStarted {
 	private void process(DebuggerEvent e) {
 		MSRCommandType temp = MSRCommandType.unknown;
 		
-		if (e.Action.equalsIgnoreCase(dbgActionStrings[0])) {
-			if (e.Reason.equalsIgnoreCase(dbgReasonStrings[3])) {
-				temp = MSRCommandType.ExceptionActExceptionNotHandled;
-			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[4])) {
-				temp = MSRCommandType.ExceptionActExceptionThrown;
-			}
-		} else if (e.Action.equalsIgnoreCase(dbgActionStrings[1])) {
-			if (e.Reason.equalsIgnoreCase(dbgReasonStrings[0])) {
-				temp = MSRCommandType.ExecActAttachProgram;
-			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[1])) {
-				temp = MSRCommandType.ExecActBreakpoint;
-			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[2])) {
-				temp = MSRCommandType.ExecActExceptionNotHandled;
-			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[3])) {
-				temp = MSRCommandType.ExecActEndProgram;
-			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[4])) {
-				temp = MSRCommandType.ExecActExceptionThrown;
-			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[5])) {
-				temp = MSRCommandType.ExecActGo;
-			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[6])) {
-				temp = MSRCommandType.ExecActLaunchProgram;
-			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[7])) {
-				temp = MSRCommandType.ExecActNone;
-			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[8])) {
-				temp = MSRCommandType.ExecActStep;
-			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[9])) {
-				temp = MSRCommandType.ExecActStopDebugging;
-			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[10])) {
-				temp = MSRCommandType.ExecActUserBreak;
-			}		
+		if ((null != e.Action) && (null != e.Reason)) {		
+			if (e.Action.equalsIgnoreCase(dbgActionStrings[0])) {
+				if (e.Reason.equalsIgnoreCase(dbgReasonStrings[3])) {
+					temp = MSRCommandType.ExceptionActExceptionNotHandled;
+				} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[4])) {
+					temp = MSRCommandType.ExceptionActExceptionThrown;
+				}
+			} else if (e.Action.equalsIgnoreCase(dbgActionStrings[1])) {
+				if (e.Reason.equalsIgnoreCase(dbgReasonStrings[0])) {
+					temp = MSRCommandType.ExecActAttachProgram;
+				} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[1])) {
+					temp = MSRCommandType.ExecActBreakpoint;
+				} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[2])) {
+					temp = MSRCommandType.ExecActExceptionNotHandled;
+				} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[3])) {
+					temp = MSRCommandType.ExecActEndProgram;
+				} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[4])) {
+					temp = MSRCommandType.ExecActExceptionThrown;
+				} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[5])) {
+					temp = MSRCommandType.ExecActGo;
+				} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[6])) {
+					temp = MSRCommandType.ExecActLaunchProgram;
+				} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[7])) {
+					temp = MSRCommandType.ExecActNone;
+				} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[8])) {
+					temp = MSRCommandType.ExecActStep;
+				} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[9])) {
+					temp = MSRCommandType.ExecActStopDebugging;
+				} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[10])) {
+					temp = MSRCommandType.ExecActUserBreak;
+				}		
+			} 
 		}
 		
 		currentUserTable.get(temp).get(currentUserPosition).add(new BigInteger("1"));
@@ -393,30 +399,32 @@ public class GettingStarted {
 	private void process(CompletionEvent e) {
 		MSRCommandType temp = MSRCommandType.unknown;
 
-		if (e.terminatedState == TerminationState.Applied) {
-			temp = MSRCommandType.CompletionApplied;
-		} else if (e.terminatedState == TerminationState.Cancelled) {
-			temp = MSRCommandType.CompletionCancelled;
-		} else if (e.terminatedState == TerminationState.Filtered) {
-			temp = MSRCommandType.CompletionFiltered;
-		} else if (e.terminatedState == TerminationState.Unknown) {
-			temp = MSRCommandType.CompletionUnkown;
+		if (null != e.terminatedState) {
+			if (e.terminatedState == TerminationState.Applied) {
+				temp = MSRCommandType.CompletionApplied;
+			} else if (e.terminatedState == TerminationState.Cancelled) {
+				temp = MSRCommandType.CompletionCancelled;
+			} else if (e.terminatedState == TerminationState.Filtered) {
+				temp = MSRCommandType.CompletionFiltered;
+			} else if (e.terminatedState == TerminationState.Unknown) {
+				temp = MSRCommandType.CompletionUnkown;
+			}
 		}
-		
 		currentUserTable.get(temp).get(currentUserPosition).add(new BigInteger("1"));
 	}
 	
 	private void process(DocumentEvent e) {
 		MSRCommandType temp = MSRCommandType.unknown;
 
-		if (e.Action == DocumentAction.Opened) {
-			temp = MSRCommandType.DocumentOpened;
-		} else if (e.Action == DocumentAction.Saved) {
-			temp = MSRCommandType.DocumentSaved;
-		} else if (e.Action == DocumentAction.Closing) {
-			temp = MSRCommandType.DocumentClosed;
+		if (null != e.Action) {
+			if (e.Action == DocumentAction.Opened) {
+				temp = MSRCommandType.DocumentOpened;
+			} else if (e.Action == DocumentAction.Saved) {
+				temp = MSRCommandType.DocumentSaved;
+			} else if (e.Action == DocumentAction.Closing) {
+				temp = MSRCommandType.DocumentClosed;
+			}
 		}
-		
 		currentUserTable.get(temp).get(currentUserPosition).add(new BigInteger("1"));
 	}	
 	
@@ -435,48 +443,51 @@ public class GettingStarted {
 	private void process(SolutionEvent e) {
 		MSRCommandType temp = MSRCommandType.unknown;
 
-		if (e.Action == SolutionAction.OpenSolution) {
-			temp = MSRCommandType.SolutionOpened;
-		} else if (e.Action == SolutionAction.RenameSolution) {
-			temp = MSRCommandType.SolutionRenamed;
-		} else if (e.Action == SolutionAction.CloseSolution) {
-			temp = MSRCommandType.SolutionClosed;
-		} else if (e.Action == SolutionAction.AddSolutionItem) {
-			temp = MSRCommandType.SolutionItemAdded;
-		} else if (e.Action == SolutionAction.RenameSolutionItem) {
-			temp = MSRCommandType.SolutionItemRenamed;
-		} else if (e.Action == SolutionAction.RemoveSolutionItem) {
-			temp = MSRCommandType.SolutionItemRemoved;
-		} else if (e.Action == SolutionAction.AddProject) {
-			temp = MSRCommandType.SolutionProjectAdded;
-		} else if (e.Action == SolutionAction.RenameProject) {
-			temp = MSRCommandType.SolutionProjectRenamed;
-		} else if (e.Action == SolutionAction.RemoveProject) {
-			temp = MSRCommandType.SolutionProjectRemoved;
-		} else if (e.Action == SolutionAction.AddProjectItem) {
-			temp = MSRCommandType.SolutionProjectItemAdded;
-		} else if (e.Action == SolutionAction.RenameProjectItem) {
-			temp = MSRCommandType.SolutionProjectItemRenamed;
-		} else if (e.Action == SolutionAction.RemoveProjectItem) {
-			temp = MSRCommandType.SolutionProjectItemRemoved;
+		if (null != e.Action) {
+			if (e.Action == SolutionAction.OpenSolution) {
+				temp = MSRCommandType.SolutionOpened;
+			} else if (e.Action == SolutionAction.RenameSolution) {
+				temp = MSRCommandType.SolutionRenamed;
+			} else if (e.Action == SolutionAction.CloseSolution) {
+				temp = MSRCommandType.SolutionClosed;
+			} else if (e.Action == SolutionAction.AddSolutionItem) {
+				temp = MSRCommandType.SolutionItemAdded;
+			} else if (e.Action == SolutionAction.RenameSolutionItem) {
+				temp = MSRCommandType.SolutionItemRenamed;
+			} else if (e.Action == SolutionAction.RemoveSolutionItem) {
+				temp = MSRCommandType.SolutionItemRemoved;
+			} else if (e.Action == SolutionAction.AddProject) {
+				temp = MSRCommandType.SolutionProjectAdded;
+			} else if (e.Action == SolutionAction.RenameProject) {
+				temp = MSRCommandType.SolutionProjectRenamed;
+			} else if (e.Action == SolutionAction.RemoveProject) {
+				temp = MSRCommandType.SolutionProjectRemoved;
+			} else if (e.Action == SolutionAction.AddProjectItem) {
+				temp = MSRCommandType.SolutionProjectItemAdded;
+			} else if (e.Action == SolutionAction.RenameProjectItem) {
+				temp = MSRCommandType.SolutionProjectItemRenamed;
+			} else if (e.Action == SolutionAction.RemoveProjectItem) {
+				temp = MSRCommandType.SolutionProjectItemRemoved;
+			}
 		}
-		
 		currentUserTable.get(temp).get(currentUserPosition).add(new BigInteger("1"));
 	}
 	
 	private void process(WindowEvent e) {
 		MSRCommandType temp = MSRCommandType.unknown;
 
-		if (e.Action == WindowAction.Create) {
-			temp = MSRCommandType.WindowCreated;
-		} else if (e.Action == WindowAction.Activate) {
-			temp = MSRCommandType.WindowActivated;
-		} else if (e.Action == WindowAction.Move) {
-			temp = MSRCommandType.WindowMoved;
-		} else if (e.Action == WindowAction.Close) {
-			temp = MSRCommandType.WindowClosed;
-		} else if (e.Action == WindowAction.Deactivate) {
-			temp = MSRCommandType.WindowDeactivated;
+		if (null != e.Action) {
+			if (e.Action == WindowAction.Create) {
+				temp = MSRCommandType.WindowCreated;
+			} else if (e.Action == WindowAction.Activate) {
+				temp = MSRCommandType.WindowActivated;
+			} else if (e.Action == WindowAction.Move) {
+				temp = MSRCommandType.WindowMoved;
+			} else if (e.Action == WindowAction.Close) {
+				temp = MSRCommandType.WindowClosed;
+			} else if (e.Action == WindowAction.Deactivate) {
+				temp = MSRCommandType.WindowDeactivated;
+			}
 		}
 		
 		currentUserTable.get(temp).get(currentUserPosition).add(new BigInteger("1"));
@@ -484,36 +495,40 @@ public class GettingStarted {
 	
 	private void process(VersionControlEvent e) {
 
-		for (VersionControlAction a : e.Actions) {
-			MSRCommandType temp = MSRCommandType.unknown;
-			
-			if (a.ActionType == VersionControlActionType.Unknown) {
-				temp = MSRCommandType.VersionControlUnknown;
-			} else if (a.ActionType == VersionControlActionType.Branch) {
-				temp = MSRCommandType.VersionControlBranch;
-			} else if (a.ActionType == VersionControlActionType.Checkout) {
-				temp = MSRCommandType.VersionControlCheckout;
-			} else if (a.ActionType == VersionControlActionType.Clone) {
-				temp = MSRCommandType.VersionControlClone;
-			} else if (a.ActionType == VersionControlActionType.Commit) {
-				temp = MSRCommandType.VersionControlCommit;
-			} else if (a.ActionType == VersionControlActionType.CommitAmend) {
-				temp = MSRCommandType.VersionControlCommitAmend;
-			} else if (a.ActionType == VersionControlActionType.CommitInitial) {
-				temp = MSRCommandType.VersionControlCommitInitial;
-			} else if (a.ActionType == VersionControlActionType.Merge) {
-				temp = MSRCommandType.VersionControlMerge;
-			} else if (a.ActionType == VersionControlActionType.Pull) {
-				temp = MSRCommandType.VersionControlPull;
-			} else if (a.ActionType == VersionControlActionType.Rebase) {
-				temp = MSRCommandType.VersionControlRebase;
-			} else if (a.ActionType == VersionControlActionType.RebaseFinished) {
-				temp = MSRCommandType.VersionControlRebaseFinished;
-			} else if (a.ActionType == VersionControlActionType.Reset) {
-				temp = MSRCommandType.VersionControlReset;
+		if (null != e.Actions) {
+			for (VersionControlAction a : e.Actions) {
+				MSRCommandType temp = MSRCommandType.unknown;
+				
+				if (null != a.ActionType) {
+					if (a.ActionType == VersionControlActionType.Unknown) {
+						temp = MSRCommandType.VersionControlUnknown;
+					} else if (a.ActionType == VersionControlActionType.Branch) {
+						temp = MSRCommandType.VersionControlBranch;
+					} else if (a.ActionType == VersionControlActionType.Checkout) {
+						temp = MSRCommandType.VersionControlCheckout;
+					} else if (a.ActionType == VersionControlActionType.Clone) {
+						temp = MSRCommandType.VersionControlClone;
+					} else if (a.ActionType == VersionControlActionType.Commit) {
+						temp = MSRCommandType.VersionControlCommit;
+					} else if (a.ActionType == VersionControlActionType.CommitAmend) {
+						temp = MSRCommandType.VersionControlCommitAmend;
+					} else if (a.ActionType == VersionControlActionType.CommitInitial) {
+						temp = MSRCommandType.VersionControlCommitInitial;
+					} else if (a.ActionType == VersionControlActionType.Merge) {
+						temp = MSRCommandType.VersionControlMerge;
+					} else if (a.ActionType == VersionControlActionType.Pull) {
+						temp = MSRCommandType.VersionControlPull;
+					} else if (a.ActionType == VersionControlActionType.Rebase) {
+						temp = MSRCommandType.VersionControlRebase;
+					} else if (a.ActionType == VersionControlActionType.RebaseFinished) {
+						temp = MSRCommandType.VersionControlRebaseFinished;
+					} else if (a.ActionType == VersionControlActionType.Reset) {
+						temp = MSRCommandType.VersionControlReset;
+					}
+				}
+				
+				currentUserTable.get(temp).get(currentUserPosition).add(new BigInteger("1"));			
 			}
-			
-			currentUserTable.get(temp).get(currentUserPosition).add(new BigInteger("1"));			
 		}
 		
 	}	
@@ -521,14 +536,16 @@ public class GettingStarted {
 	private void process(NavigationEvent e) {
 		MSRCommandType temp = MSRCommandType.unknown;
 
-		if (e.TypeOfNavigation == NavigationType.Unknown) {
-			temp = MSRCommandType.NavigationUnknown;
-		} else if (e.TypeOfNavigation == NavigationType.CtrlClick) {
-			temp = MSRCommandType.NavigationCtrlClick;
-		} else if (e.TypeOfNavigation == NavigationType.Click) {
-			temp = MSRCommandType.NavigationClick;
-		} else if (e.TypeOfNavigation == NavigationType.Keyboard) {
-			temp = MSRCommandType.NavigationKeyboard;
+		if (null != e.TypeOfNavigation) {
+			if (e.TypeOfNavigation == NavigationType.Unknown) {
+				temp = MSRCommandType.NavigationUnknown;
+			} else if (e.TypeOfNavigation == NavigationType.CtrlClick) {
+				temp = MSRCommandType.NavigationCtrlClick;
+			} else if (e.TypeOfNavigation == NavigationType.Click) {
+				temp = MSRCommandType.NavigationClick;
+			} else if (e.TypeOfNavigation == NavigationType.Keyboard) {
+				temp = MSRCommandType.NavigationKeyboard;
+			}
 		}
 		
 		currentUserTable.get(temp).get(currentUserPosition).add(new BigInteger("1"));
