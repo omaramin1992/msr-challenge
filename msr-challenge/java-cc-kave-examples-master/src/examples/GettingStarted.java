@@ -33,6 +33,8 @@ import cc.kave.commons.model.events.CommandEvent;
 //import cc.kave.commons.model.events.userprofiles.Positions;
 import cc.kave.commons.model.events.IDEEvent;
 import cc.kave.commons.model.events.completionevents.CompletionEvent;
+import cc.kave.commons.model.events.userprofiles.Positions;
+import cc.kave.commons.model.events.userprofiles.UserProfileEvent;
 import cc.kave.commons.model.events.visualstudio.BuildEvent;
 import cc.kave.commons.model.events.visualstudio.DebuggerEvent;
 import cc.kave.commons.model.ssts.ISST;
@@ -52,19 +54,49 @@ import java.nio.file.Files;
 public class GettingStarted {
 
 	private String eventsDir;
-	
+/**	
 	private static TreeSet<String> commandIDSet = new TreeSet<String>();
 	private static TreeSet<String> buildScopeSet = new TreeSet<String>();
 	private static TreeSet<String> buildActionSet = new TreeSet<String>();
 
 	private static TreeSet<String> dbgReasonSet = new TreeSet<String>();
 	private static TreeSet<String> dbgActionSet = new TreeSet<String>();
+*/	
+	//Assuming the execution action default are the dbg reasons strings, and all of the other weird exceptions are either
+	//exception action or null... think we'll just ignore exception actions unless they're from the dbgreasons strings[]
+	public static final String[] dbgActionStrings = {"dbgExceptionActionDefault", "dbgExecutionActionDefault"};
+	//There are many dbg Reasons, I'm only putting the ones that looked like they could make sense...
+	public static final String[] dbgReasonStrings = {"dbgEventReasonAttachProgram", "dbgEventReasonBreakpoint",
+			"dbgEventReasonEndProgram", "dbgEventReasonExceptionNotHandled", "dbgEventReasonExceptionThrown",
+			"dbgEventReasonGo", "dbgEventReasonLaunchProgram", "dbgEventReasonNone", "dbgEventReasonStep",
+			"dbgEventReasonStopDebugging", "dbgEventReasonUserBreak"};
+	
+	/**Unfortunately, I think it will be best if we ignore the commandEvents. It's too "wild"!!!*/
+	
+	public static final String[] buildActionStrings = {"vsBuildActionBuild", "vsBuildActionClean", 
+			"vsBuildActionDeploy", "vsBuildActionRebuildAll"};
+	
+	public static final String[] buildScopeStrings = {"0", "vsBuildScopeBatch", "vsBuildScopeProject", "vsBuildScopeSolution"};
+	
+	public static EnumMap<MSRCommandType, EnumMap<Positions, BigInteger>> outputTable = new EnumMap<MSRCommandType, EnumMap<Positions, BigInteger>>(MSRCommandType.class);
+	
+	public static EnumMap<MSRCommandType, EnumMap<Positions, BigInteger>> currentUserTable = new EnumMap<MSRCommandType, EnumMap<Positions, BigInteger>>(MSRCommandType.class);
+	
+	public static Positions currentUserPosition = Positions.Unknown;
 	
 	public GettingStarted(String eventsDir) {
 		this.eventsDir = eventsDir;
 	}
 
 	public void run() {
+		
+		for(MSRCommandType c : MSRCommandType.values()) {
+			EnumMap<Positions, BigInteger> temp = new EnumMap<Positions, BigInteger>(Positions.class);
+			for(Positions p : Positions.values()) {
+				temp.put(p, new BigInteger("0"));
+			}
+			outputTable.put(c, temp);
+		}
 
 		System.out.printf("looking (recursively) for events in folder %s\n", new File(eventsDir).getAbsolutePath());
 
@@ -76,10 +108,13 @@ public class GettingStarted {
 		Set<String> userZips = IoHelper.findAllZips(eventsDir);
 
 		for (String userZip : userZips) {
+			currentUserPosition = Positions.Unknown;
+			currentUserTable = new EnumMap<MSRCommandType, EnumMap<Positions, BigInteger>>(MSRCommandType.class);
 			System.out.printf("\n#### processing user zip: %s #####\n", userZip);
 			processUserZip(userZip);
+			copyCurrentUserTableToOutput();
 		}
-		
+		/**
 		try {
 			Files.write(Paths.get("commandIDS-3.txt"), commandIDSet);
 			Files.write(Paths.get("buildScopes-3.txt"), buildScopeSet);
@@ -89,6 +124,12 @@ public class GettingStarted {
 		} catch (Exception e) {
 			System.err.println("Error trying to output the sets to files.\nException " + e);
 		}
+		*/
+		try {
+			Files.write(Paths.get("output.txt"), outputTable.toString().getBytes());
+		} catch (Exception e) {
+			System.err.println("Error trying to output the sets to files.\nException " + e);
+		}		
 	}
 
 	private void processUserZip(String userZip) {
@@ -172,43 +213,80 @@ public class GettingStarted {
 			process((BuildEvent) e);
 		} else if (e instanceof DebuggerEvent) {
 			process((DebuggerEvent) e);
+		} else if (e instanceof UserProfileEvent) {
+			process((UserProfileEvent) e);
 		}
 
 	}
 
+	private void process(UserProfileEvent e) {
+		if(e.Position != currentUserPosition) {
+			Positions old = currentUserPosition;
+			currentUserPosition = e.Position;
+			remakeCurrentUserOutputMap(old);
+		}
+	}
+	
+	/**
+	 * Unfortunately, it is not the case that the first event we see in a user's directory is its profile.
+	 * So, when we finally do see a profile, we need to copy everything we've done into the proper heading.
+	 * WARNING: There are multiple profile events per user, but we assume they all have the same Position.
+	 *          If the position changes, we lump everything into the new category.
+	 * @param oldPos
+	 */
+	private void remakeCurrentUserOutputMap(Positions oldPos){
+		
+		for(MSRCommandType c : MSRCommandType.values()) {
+			EnumMap<Positions, BigInteger> temp = new EnumMap<Positions, BigInteger>(Positions.class);
+			for(Positions p : Positions.values()) {
+				temp.put(p, new BigInteger("0"));
+			}
+			temp.put(currentUserPosition, currentUserTable.get(c).get(oldPos));
+			currentUserTable.put(c, temp);
+		}		
+	}
+	
+	private void copyCurrentUserTableToOutput() {
+		for(MSRCommandType c : MSRCommandType.values()) {
+			for(Positions p : Positions.values()) {
+				outputTable.get(c).get(p).add( currentUserTable.get(c).get(p) );
+			}
+		}		
+	}
+	
 	private void process(CommandEvent ce) {
 		if(null == ce.getCommandId()) {
-			commandIDSet.add("null");
+//			commandIDSet.add("null");
 		} else {
-			commandIDSet.add(ce.getCommandId());
+//			commandIDSet.add(ce.getCommandId());
 		}
 		//System.out.printf("found a CommandEvent (id: %s)\n", ce.getCommandId());
 	}
 	
 	private void process(BuildEvent e) {
 		if(null == e.Scope) {
-			buildScopeSet.add("null");
+//			buildScopeSet.add("null");
 		} else {
-			buildScopeSet.add(e.Scope);
+//			buildScopeSet.add(e.Scope);
 		}
 		if (null == e.Action) {
-			buildActionSet.add("null");
+//			buildActionSet.add("null");
 		} else {
-			buildActionSet.add(e.Action);
+//			buildActionSet.add(e.Action);
 		}
 		//System.out.printf("found a CommandEvent (id: %s)\n", ce.getCommandId());
 	}
 	
 	private void process(DebuggerEvent e) {
 		if(null == e.Reason) {
-			dbgReasonSet.add("null");
+//			dbgReasonSet.add("null");
 		} else {
-			dbgReasonSet.add(e.Reason);
+//			dbgReasonSet.add(e.Reason);
 		}
 		if(null == e.Action) {
-			dbgActionSet.add("null");
+//			dbgActionSet.add("null");
 		} else {
-			dbgActionSet.add(e.Action);
+//			dbgActionSet.add(e.Action);
 		}
 		//System.out.printf("found a CommandEvent (id: %s)\n", ce.getCommandId());
 	}

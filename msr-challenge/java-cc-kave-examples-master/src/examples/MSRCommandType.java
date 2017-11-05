@@ -1,8 +1,18 @@
 
-//TODO We need to run through the data to see what strings are given to "CommandEvent"s
-//TODO Also for Build events. We should have commands like ProjectBuild, SolutionClean, etc, combining scope w action
-//TODO similar for debug events. Before we can write up their commands, we need to know what valid "reasons" and "actions" are used
+//NOTE I think we're going to ignore "CommandEvent"s, they aren't well-defined...
 public enum MSRCommandType {
+	unknown,
+	
+	//Build events. We should have commands like ProjectBuild, SolutionClean, etc, combining scope w action
+	BatchBuild, BatchClean, BatchDeploy, BatchRebuildAll,
+	ProjectBuild, ProjectClean, ProjectDeploy, ProjectRebuildAll,
+	SolutionBuild, SolutionClean, SolutionDeploy, SolutionRebuildAll,
+	
+	//It's unclear how the debug events work, I'm going to guess
+	ExecActAttachProgram, ExecActBreakpoint, ExecActEndProgram, ExecActExceptionNotHandled, ExceptionActExceptionNotHandled,
+	ExecActExceptionThrown, ExceptionActExceptionThrown,
+	ExecActGo, ExecActLaunchProgram, ExecActNone, ExecActStep, ExecActStopDebugging, ExecActUserBreak,
+	
 	CompletionApplied, CompletionCancelled, CompletionFiltered, CompletionUnkown, //termination state for completion events/intellisense
 	DocumentOpened, DocumentSaved, DocumentClosed, //DocumentEvent actions
 //	Edit //This may only be interesting when preceded by an applied completion... Then again, it may be useless in that case...
