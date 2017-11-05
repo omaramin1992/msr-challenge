@@ -81,11 +81,11 @@ public class GettingStarted {
 		}
 		
 		try {
-			Files.write(Paths.get("commandIDS-2.txt"), commandIDSet);
-			Files.write(Paths.get("buildScopes-2.txt"), buildScopeSet);
-			Files.write(Paths.get("buildActions-2.txt"), buildActionSet);
-			Files.write(Paths.get("dbgReasons-2.txt"), dbgReasonSet);
-			Files.write(Paths.get("dbgActions-2.txt"), dbgActionSet);		
+			Files.write(Paths.get("commandIDS-3.txt"), commandIDSet);
+			Files.write(Paths.get("buildScopes-3.txt"), buildScopeSet);
+			Files.write(Paths.get("buildActions-3.txt"), buildActionSet);
+			Files.write(Paths.get("dbgReasons-3.txt"), dbgReasonSet);
+			Files.write(Paths.get("dbgActions-3.txt"), dbgActionSet);		
 		} catch (Exception e) {
 			System.err.println("Error trying to output the sets to files.\nException " + e);
 		}

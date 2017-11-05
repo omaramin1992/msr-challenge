@@ -1,4 +1,4 @@
-
+import java.util.concurrent.TimeUnit;
 
 /**
  * Copyright 2016 University of Zurich
@@ -26,7 +26,7 @@ public class RunMe {
 	 * includes a bunch of folders that have dates as names and that contain .zip
 	 * files.
 	 */
-	public static String eventsDir = "Events-170301/2016-09-26";
+	public static String eventsDir = "Events-170301";
 
 	/*
 	 * download the context data and follow the same instructions as before.
@@ -34,8 +34,16 @@ public class RunMe {
 //	public static String contextsDir = "Contexts-170301";
 
 	public static void main(String[] args) {
-
+		//this timing code doesn't work
+//		long startTime = System.nanoTime();
+		
 		new GettingStarted(eventsDir).run();
 //		new GettingStartedContexts(contextsDir).run();
+//		long difference = System.nanoTime() - startTime;
+//		System.out.println("Total execution time: " +
+//                String.format("%d min, %d sec",
+//                        TimeUnit.NANOSECONDS.toHours(difference),
+//                        TimeUnit.NANOSECONDS.toSeconds(difference) -
+//                                TimeUnit.MINUTES.toSeconds(TimeUnit.NANOSECONDS.toMinutes(difference))));		
 	}
 }
