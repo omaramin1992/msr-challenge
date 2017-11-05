@@ -28,20 +28,32 @@ import java.nio.file.Paths;
 //Can use Collections.synchronizedMap(new EnumMap<EnumKey, V>(...)); if we need concurrency
 import java.util.EnumMap;
 
+import cc.kave.commons.model.events.*;
+
 import cc.kave.commons.model.events.CommandEvent;
 //There's also "Education"...
 //import cc.kave.commons.model.events.userprofiles.Positions;
 import cc.kave.commons.model.events.IDEEvent;
 import cc.kave.commons.model.events.completionevents.CompletionEvent;
+import cc.kave.commons.model.events.completionevents.TerminationState;
+import cc.kave.commons.model.events.testrunevents.TestRunEvent;
 import cc.kave.commons.model.events.userprofiles.Positions;
 import cc.kave.commons.model.events.userprofiles.UserProfileEvent;
+import cc.kave.commons.model.events.versioncontrolevents.VersionControlAction;
+import cc.kave.commons.model.events.versioncontrolevents.VersionControlActionType;
+import cc.kave.commons.model.events.versioncontrolevents.VersionControlEvent;
 import cc.kave.commons.model.events.visualstudio.BuildEvent;
 import cc.kave.commons.model.events.visualstudio.DebuggerEvent;
+import cc.kave.commons.model.events.visualstudio.DocumentAction;
+import cc.kave.commons.model.events.visualstudio.DocumentEvent;
+import cc.kave.commons.model.events.visualstudio.FindEvent;
+import cc.kave.commons.model.events.visualstudio.SolutionAction;
+import cc.kave.commons.model.events.visualstudio.SolutionEvent;
+import cc.kave.commons.model.events.visualstudio.WindowAction;
+import cc.kave.commons.model.events.visualstudio.WindowEvent;
 import cc.kave.commons.model.ssts.ISST;
 import cc.kave.commons.utils.io.IReadingArchive;
 import cc.kave.commons.utils.io.ReadingArchive;
-
-import cc.kave.commons.model.events.*;
 
 import java.util.TreeSet;
 
@@ -207,14 +219,30 @@ public class GettingStarted {
 //			 */
 //			processBasic(e);
 //		}
-		if (e instanceof CommandEvent) {
+/*		if (e instanceof CommandEvent) {
 			process((CommandEvent) e);
-		} else if (e instanceof BuildEvent) {
+		} else*/ if (e instanceof BuildEvent) {
 			process((BuildEvent) e);
 		} else if (e instanceof DebuggerEvent) {
 			process((DebuggerEvent) e);
 		} else if (e instanceof UserProfileEvent) {
 			process((UserProfileEvent) e);
+		} else if (e instanceof CompletionEvent) {
+			process((CompletionEvent) e);
+		} else if (e instanceof DocumentEvent) {
+			process((DocumentEvent) e);
+		} else if (e instanceof FindEvent) {
+			process((FindEvent) e);
+		} else if (e instanceof SolutionEvent) {
+			process((SolutionEvent) e);
+		} else if (e instanceof WindowEvent) {
+			process((WindowEvent) e);
+		} else if (e instanceof VersionControlEvent) {
+			process((VersionControlEvent) e);
+		} else if (e instanceof NavigationEvent) {
+			process((NavigationEvent) e);
+		} else if (e instanceof TestRunEvent) {
+			process((TestRunEvent) e);
 		}
 
 	}
@@ -254,54 +282,267 @@ public class GettingStarted {
 		}		
 	}
 	
-	private void process(CommandEvent ce) {
+/*	private void process(CommandEvent ce) {
 		if(null == ce.getCommandId()) {
 //			commandIDSet.add("null");
 		} else {
 //			commandIDSet.add(ce.getCommandId());
 		}
 		//System.out.printf("found a CommandEvent (id: %s)\n", ce.getCommandId());
-	}
+	}*/
 	
 	private void process(BuildEvent e) {
-		if(null == e.Scope) {
-//			buildScopeSet.add("null");
-		} else {
-//			buildScopeSet.add(e.Scope);
+		
+		MSRCommandType temp = MSRCommandType.unknown;
+		
+		//buildScopeStrings[0] is garbage
+		if (e.Scope.equalsIgnoreCase(buildScopeStrings[1])) {
+			//Batch
+			if (e.Action.equalsIgnoreCase(buildActionStrings[0])) {
+				//Build
+				temp = MSRCommandType.BatchBuild;
+			} else if (e.Action.equalsIgnoreCase(buildActionStrings[1])) {
+				//Clean
+				temp = MSRCommandType.BatchClean;
+			} else if (e.Action.equalsIgnoreCase(buildActionStrings[2])) {
+				//Deploy
+				temp = MSRCommandType.BatchDeploy;
+			} else if (e.Action.equalsIgnoreCase(buildActionStrings[3])) {
+				//Deploy
+				temp = MSRCommandType.BatchRebuildAll;
+			}
+		} else if (e.Scope.equalsIgnoreCase(buildScopeStrings[2])) {
+			//Project
+			if (e.Action.equalsIgnoreCase(buildActionStrings[0])) {
+				//Build
+				temp = MSRCommandType.ProjectBuild;
+			} else if (e.Action.equalsIgnoreCase(buildActionStrings[1])) {
+				//Clean
+				temp = MSRCommandType.ProjectClean;
+			} else if (e.Action.equalsIgnoreCase(buildActionStrings[2])) {
+				//Deploy
+				temp = MSRCommandType.ProjectDeploy;
+			} else if (e.Action.equalsIgnoreCase(buildActionStrings[3])) {
+				//Deploy
+				temp = MSRCommandType.ProjectRebuildAll;
+			}			
+		} else if (e.Scope.equalsIgnoreCase(buildScopeStrings[3])) {
+			//Solution
+			if (e.Action.equalsIgnoreCase(buildActionStrings[0])) {
+				//Build
+				temp = MSRCommandType.SolutionBuild;
+			} else if (e.Action.equalsIgnoreCase(buildActionStrings[1])) {
+				//Clean
+				temp = MSRCommandType.SolutionClean;
+			} else if (e.Action.equalsIgnoreCase(buildActionStrings[2])) {
+				//Deploy
+				temp = MSRCommandType.SolutionDeploy;
+			} else if (e.Action.equalsIgnoreCase(buildActionStrings[3])) {
+				//Deploy
+				temp = MSRCommandType.SolutionRebuildAll;
+			}			
 		}
-		if (null == e.Action) {
-//			buildActionSet.add("null");
-		} else {
-//			buildActionSet.add(e.Action);
-		}
-		//System.out.printf("found a CommandEvent (id: %s)\n", ce.getCommandId());
+		currentUserTable.get(temp).get(currentUserPosition).add(new BigInteger("1"));
 	}
 	
 	private void process(DebuggerEvent e) {
-		if(null == e.Reason) {
-//			dbgReasonSet.add("null");
-		} else {
-//			dbgReasonSet.add(e.Reason);
+		MSRCommandType temp = MSRCommandType.unknown;
+		
+		if (e.Action.equalsIgnoreCase(dbgActionStrings[0])) {
+			if (e.Reason.equalsIgnoreCase(dbgReasonStrings[3])) {
+				temp = MSRCommandType.ExceptionActExceptionNotHandled;
+			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[4])) {
+				temp = MSRCommandType.ExceptionActExceptionThrown;
+			}
+		} else if (e.Action.equalsIgnoreCase(dbgActionStrings[1])) {
+			if (e.Reason.equalsIgnoreCase(dbgReasonStrings[0])) {
+				temp = MSRCommandType.ExecActAttachProgram;
+			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[1])) {
+				temp = MSRCommandType.ExecActBreakpoint;
+			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[2])) {
+				temp = MSRCommandType.ExecActExceptionNotHandled;
+			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[3])) {
+				temp = MSRCommandType.ExecActEndProgram;
+			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[4])) {
+				temp = MSRCommandType.ExecActExceptionThrown;
+			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[5])) {
+				temp = MSRCommandType.ExecActGo;
+			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[6])) {
+				temp = MSRCommandType.ExecActLaunchProgram;
+			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[7])) {
+				temp = MSRCommandType.ExecActNone;
+			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[8])) {
+				temp = MSRCommandType.ExecActStep;
+			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[9])) {
+				temp = MSRCommandType.ExecActStopDebugging;
+			} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[10])) {
+				temp = MSRCommandType.ExecActUserBreak;
+			}		
 		}
-		if(null == e.Action) {
-//			dbgActionSet.add("null");
-		} else {
-//			dbgActionSet.add(e.Action);
-		}
-		//System.out.printf("found a CommandEvent (id: %s)\n", ce.getCommandId());
+		
+		currentUserTable.get(temp).get(currentUserPosition).add(new BigInteger("1"));
 	}
 
 	private void process(CompletionEvent e) {
-		ISST snapshotOfEnclosingType = e.context.getSST();
-		String enclosingTypeName = snapshotOfEnclosingType.getEnclosingType().getFullName();
+		MSRCommandType temp = MSRCommandType.unknown;
 
-		System.out.printf("found a CompletionEvent (was triggered in: %s)\n", enclosingTypeName);
+		if (e.terminatedState == TerminationState.Applied) {
+			temp = MSRCommandType.CompletionApplied;
+		} else if (e.terminatedState == TerminationState.Cancelled) {
+			temp = MSRCommandType.CompletionCancelled;
+		} else if (e.terminatedState == TerminationState.Filtered) {
+			temp = MSRCommandType.CompletionFiltered;
+		} else if (e.terminatedState == TerminationState.Unknown) {
+			temp = MSRCommandType.CompletionUnkown;
+		}
+		
+		currentUserTable.get(temp).get(currentUserPosition).add(new BigInteger("1"));
 	}
+	
+	private void process(DocumentEvent e) {
+		MSRCommandType temp = MSRCommandType.unknown;
 
-	private void processBasic(IDEEvent e) {
+		if (e.Action == DocumentAction.Opened) {
+			temp = MSRCommandType.DocumentOpened;
+		} else if (e.Action == DocumentAction.Saved) {
+			temp = MSRCommandType.DocumentSaved;
+		} else if (e.Action == DocumentAction.Closing) {
+			temp = MSRCommandType.DocumentClosed;
+		}
+		
+		currentUserTable.get(temp).get(currentUserPosition).add(new BigInteger("1"));
+	}	
+	
+	private void process(FindEvent e) {
+		MSRCommandType temp = MSRCommandType.unknown;
+
+		if (e.Cancelled) {
+			temp = MSRCommandType.FindCancelled;
+		} else {
+			temp = MSRCommandType.FindCompleted;
+		}
+		
+		currentUserTable.get(temp).get(currentUserPosition).add(new BigInteger("1"));
+	}
+	
+	private void process(SolutionEvent e) {
+		MSRCommandType temp = MSRCommandType.unknown;
+
+		if (e.Action == SolutionAction.OpenSolution) {
+			temp = MSRCommandType.SolutionOpened;
+		} else if (e.Action == SolutionAction.RenameSolution) {
+			temp = MSRCommandType.SolutionRenamed;
+		} else if (e.Action == SolutionAction.CloseSolution) {
+			temp = MSRCommandType.SolutionClosed;
+		} else if (e.Action == SolutionAction.AddSolutionItem) {
+			temp = MSRCommandType.SolutionItemAdded;
+		} else if (e.Action == SolutionAction.RenameSolutionItem) {
+			temp = MSRCommandType.SolutionItemRenamed;
+		} else if (e.Action == SolutionAction.RemoveSolutionItem) {
+			temp = MSRCommandType.SolutionItemRemoved;
+		} else if (e.Action == SolutionAction.AddProject) {
+			temp = MSRCommandType.SolutionProjectAdded;
+		} else if (e.Action == SolutionAction.RenameProject) {
+			temp = MSRCommandType.SolutionProjectRenamed;
+		} else if (e.Action == SolutionAction.RemoveProject) {
+			temp = MSRCommandType.SolutionProjectRemoved;
+		} else if (e.Action == SolutionAction.AddProjectItem) {
+			temp = MSRCommandType.SolutionProjectItemAdded;
+		} else if (e.Action == SolutionAction.RenameProjectItem) {
+			temp = MSRCommandType.SolutionProjectItemRenamed;
+		} else if (e.Action == SolutionAction.RemoveProjectItem) {
+			temp = MSRCommandType.SolutionProjectItemRemoved;
+		}
+		
+		currentUserTable.get(temp).get(currentUserPosition).add(new BigInteger("1"));
+	}
+	
+	private void process(WindowEvent e) {
+		MSRCommandType temp = MSRCommandType.unknown;
+
+		if (e.Action == WindowAction.Create) {
+			temp = MSRCommandType.WindowCreated;
+		} else if (e.Action == WindowAction.Activate) {
+			temp = MSRCommandType.WindowActivated;
+		} else if (e.Action == WindowAction.Move) {
+			temp = MSRCommandType.WindowMoved;
+		} else if (e.Action == WindowAction.Close) {
+			temp = MSRCommandType.WindowClosed;
+		} else if (e.Action == WindowAction.Deactivate) {
+			temp = MSRCommandType.WindowDeactivated;
+		}
+		
+		currentUserTable.get(temp).get(currentUserPosition).add(new BigInteger("1"));
+	}
+	
+	private void process(VersionControlEvent e) {
+
+		for (VersionControlAction a : e.Actions) {
+			MSRCommandType temp = MSRCommandType.unknown;
+			
+			if (a.ActionType == VersionControlActionType.Unknown) {
+				temp = MSRCommandType.VersionControlUnknown;
+			} else if (a.ActionType == VersionControlActionType.Branch) {
+				temp = MSRCommandType.VersionControlBranch;
+			} else if (a.ActionType == VersionControlActionType.Checkout) {
+				temp = MSRCommandType.VersionControlCheckout;
+			} else if (a.ActionType == VersionControlActionType.Clone) {
+				temp = MSRCommandType.VersionControlClone;
+			} else if (a.ActionType == VersionControlActionType.Commit) {
+				temp = MSRCommandType.VersionControlCommit;
+			} else if (a.ActionType == VersionControlActionType.CommitAmend) {
+				temp = MSRCommandType.VersionControlCommitAmend;
+			} else if (a.ActionType == VersionControlActionType.CommitInitial) {
+				temp = MSRCommandType.VersionControlCommitInitial;
+			} else if (a.ActionType == VersionControlActionType.Merge) {
+				temp = MSRCommandType.VersionControlMerge;
+			} else if (a.ActionType == VersionControlActionType.Pull) {
+				temp = MSRCommandType.VersionControlPull;
+			} else if (a.ActionType == VersionControlActionType.Rebase) {
+				temp = MSRCommandType.VersionControlRebase;
+			} else if (a.ActionType == VersionControlActionType.RebaseFinished) {
+				temp = MSRCommandType.VersionControlRebaseFinished;
+			} else if (a.ActionType == VersionControlActionType.Reset) {
+				temp = MSRCommandType.VersionControlReset;
+			}
+			
+			currentUserTable.get(temp).get(currentUserPosition).add(new BigInteger("1"));			
+		}
+		
+	}	
+	
+	private void process(NavigationEvent e) {
+		MSRCommandType temp = MSRCommandType.unknown;
+
+		if (e.TypeOfNavigation == NavigationType.Unknown) {
+			temp = MSRCommandType.NavigationUnknown;
+		} else if (e.TypeOfNavigation == NavigationType.CtrlClick) {
+			temp = MSRCommandType.NavigationCtrlClick;
+		} else if (e.TypeOfNavigation == NavigationType.Click) {
+			temp = MSRCommandType.NavigationClick;
+		} else if (e.TypeOfNavigation == NavigationType.Keyboard) {
+			temp = MSRCommandType.NavigationKeyboard;
+		}
+		
+		currentUserTable.get(temp).get(currentUserPosition).add(new BigInteger("1"));
+	}
+	
+	private void process(TestRunEvent e) {
+		MSRCommandType temp = MSRCommandType.unknown;
+
+		if (e.WasAborted) {
+			temp = MSRCommandType.TestRunAborted;
+		} else {
+			temp = MSRCommandType.TestRunCompleted;
+		}
+		
+		currentUserTable.get(temp).get(currentUserPosition).add(new BigInteger("1"));
+	}	
+
+/*	private void processBasic(IDEEvent e) {
 		String eventType = e.getClass().getSimpleName();
 		ZonedDateTime triggerTime = e.getTriggeredAt();
 
 		System.out.printf("unrecognized event: " + e + "\n found an %s that has been triggered at: %s)\n", eventType, triggerTime);
-	}
+	}*/
 }
