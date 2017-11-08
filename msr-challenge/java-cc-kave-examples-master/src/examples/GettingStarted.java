@@ -1,12 +1,12 @@
 /**
  * Copyright 2016 University of Zurich
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -66,14 +66,14 @@ import java.nio.file.Files;
 public class GettingStarted {
 
 	private String eventsDir;
-	/**
-	 private static TreeSet<String> commandIDSet = new TreeSet<String>();
-	 private static TreeSet<String> buildScopeSet = new TreeSet<String>();
-	 private static TreeSet<String> buildActionSet = new TreeSet<String>();
+/**	
+	private static TreeSet<String> commandIDSet = new TreeSet<String>();
+	private static TreeSet<String> buildScopeSet = new TreeSet<String>();
+	private static TreeSet<String> buildActionSet = new TreeSet<String>();
 
-	 private static TreeSet<String> dbgReasonSet = new TreeSet<String>();
-	 private static TreeSet<String> dbgActionSet = new TreeSet<String>();
-	 */
+	private static TreeSet<String> dbgReasonSet = new TreeSet<String>();
+	private static TreeSet<String> dbgActionSet = new TreeSet<String>();
+*/	
 	//Assuming the execution action default are the dbg reasons strings, and all of the other weird exceptions are either
 	//exception action or null... think we'll just ignore exception actions unless they're from the dbgreasons strings[]
 	public static final String[] dbgActionStrings = {"dbgExceptionActionDefault", "dbgExecutionActionDefault"};
@@ -82,26 +82,26 @@ public class GettingStarted {
 			"dbgEventReasonEndProgram", "dbgEventReasonExceptionNotHandled", "dbgEventReasonExceptionThrown",
 			"dbgEventReasonGo", "dbgEventReasonLaunchProgram", "dbgEventReasonNone", "dbgEventReasonStep",
 			"dbgEventReasonStopDebugging", "dbgEventReasonUserBreak"};
-
+	
 	/**Unfortunately, I think it will be best if we ignore the commandEvents. It's too "wild"!!!*/
-
-	public static final String[] buildActionStrings = {"vsBuildActionBuild", "vsBuildActionClean",
+	
+	public static final String[] buildActionStrings = {"vsBuildActionBuild", "vsBuildActionClean", 
 			"vsBuildActionDeploy", "vsBuildActionRebuildAll"};
-
+	
 	public static final String[] buildScopeStrings = {"0", "vsBuildScopeBatch", "vsBuildScopeProject", "vsBuildScopeSolution"};
-
+	
 	public static EnumMap<MSRCommandType, EnumMap<Positions, BigInteger>> outputTable = new EnumMap<MSRCommandType, EnumMap<Positions, BigInteger>>(MSRCommandType.class);
-
+	
 	public static EnumMap<MSRCommandType, EnumMap<Positions, BigInteger>> currentUserTable = new EnumMap<MSRCommandType, EnumMap<Positions, BigInteger>>(MSRCommandType.class);
-
+	
 	public static Positions currentUserPosition = Positions.Unknown;
-
+	
 	public GettingStarted(String eventsDir) {
 		this.eventsDir = eventsDir;
 	}
 
 	public void run() {
-
+		
 		for(MSRCommandType c : MSRCommandType.values()) {
 			EnumMap<Positions, BigInteger> temp = new EnumMap<Positions, BigInteger>(Positions.class);
 			for(Positions p : Positions.values()) {
@@ -128,27 +128,28 @@ public class GettingStarted {
 					temp.put(p, new BigInteger("0"));
 				}
 				currentUserTable.put(c, temp);
-			}
+			}			
 			System.out.printf("\n#### processing user zip: %s #####\n", userZip);
 			processUserZip(userZip);
 			copyCurrentUserTableToOutput();
 		}
 		/**
-		 try {
-		 Files.write(Paths.get("commandIDS-3.txt"), commandIDSet);
-		 Files.write(Paths.get("buildScopes-3.txt"), buildScopeSet);
-		 Files.write(Paths.get("buildActions-3.txt"), buildActionSet);
-		 Files.write(Paths.get("dbgReasons-3.txt"), dbgReasonSet);
-		 Files.write(Paths.get("dbgActions-3.txt"), dbgActionSet);
-		 } catch (Exception e) {
-		 System.err.println("Error trying to output the sets to files.\nException " + e);
-		 }
-		 */
 		try {
-			Files.write(Paths.get("output.txt"), outputTable.toString().getBytes());
+			Files.write(Paths.get("commandIDS-3.txt"), commandIDSet);
+			Files.write(Paths.get("buildScopes-3.txt"), buildScopeSet);
+			Files.write(Paths.get("buildActions-3.txt"), buildActionSet);
+			Files.write(Paths.get("dbgReasons-3.txt"), dbgReasonSet);
+			Files.write(Paths.get("dbgActions-3.txt"), dbgActionSet);		
 		} catch (Exception e) {
 			System.err.println("Error trying to output the sets to files.\nException " + e);
 		}
+		*/
+		try {
+			Files.write(Paths.get("output.txt"), outputTable.toString().getBytes());
+			System.out.println("Done writing to file!");
+		} catch (Exception e) {
+			System.err.println("Error trying to output the sets to files.\nException " + e);
+		}		
 	}
 
 	private void processUserZip(String userZip) {
@@ -176,7 +177,7 @@ public class GettingStarted {
 //					System.out.println(i);
 				}
 				catch (Exception e) {
-					System.err.println("Couldn't process userzip " + userZip + " event " + i + "\nException " + e);
+					System.err.println("Couldn't process userzip " + userZip + " event " + i + "\nException " + e);					
 				}
 			}
 			ra.close();
@@ -263,7 +264,7 @@ public class GettingStarted {
 			}
 		}
 	}
-
+	
 	/**
 	 * Unfortunately, it is not the case that the first event we see in a user's directory is its profile.
 	 * So, when we finally do see a profile, we need to copy everything we've done into the proper heading.
@@ -272,7 +273,7 @@ public class GettingStarted {
 	 * @param oldPos
 	 */
 	private void remakeCurrentUserOutputMap(Positions oldPos){
-
+		
 		for(MSRCommandType c : MSRCommandType.values()) {
 			EnumMap<Positions, BigInteger> temp = new EnumMap<Positions, BigInteger>(Positions.class);
 			for(Positions p : Positions.values()) {
@@ -280,15 +281,19 @@ public class GettingStarted {
 			}
 			temp.put(currentUserPosition, currentUserTable.get(c).get(oldPos));
 			currentUserTable.put(c, temp);
-		}
+		}		
 	}
-
+	
 	private void copyCurrentUserTableToOutput() {
 		for(MSRCommandType c : MSRCommandType.values()) {
 			for(Positions p : Positions.values()) {
-				outputTable.get(c).get(p).add( currentUserTable.get(c).get(p) );
+//				outputTable.get(c).get(p).add( currentUserTable.get(c).get(p) );
+                BigInteger temp1 = currentUserTable.get(c).get(p);
+                BigInteger temp2 = outputTable.get(c).get(p);
+                BigInteger new_temp = temp1.add(temp2);
+				outputTable.get(c).put(p,new_temp);
 			}
-		}
+		}		
 	}
 	
 /*	private void process(CommandEvent ce) {
@@ -299,11 +304,11 @@ public class GettingStarted {
 		}
 		//System.out.printf("found a CommandEvent (id: %s)\n", ce.getCommandId());
 	}*/
-
+	
 	private void process(BuildEvent e) {
-
+		
 		MSRCommandType temp = MSRCommandType.unknown;
-
+		
 		if ((null != e.Scope) && (null != e.Action)) {
 			//buildScopeStrings[0] is garbage
 			if (e.Scope.equalsIgnoreCase(buildScopeStrings[1])) {
@@ -335,7 +340,7 @@ public class GettingStarted {
 				} else if (e.Action.equalsIgnoreCase(buildActionStrings[3])) {
 					//Deploy
 					temp = MSRCommandType.ProjectRebuildAll;
-				}
+				}			
 			} else if (e.Scope.equalsIgnoreCase(buildScopeStrings[3])) {
 				//Solution
 				if (e.Action.equalsIgnoreCase(buildActionStrings[0])) {
@@ -350,23 +355,23 @@ public class GettingStarted {
 				} else if (e.Action.equalsIgnoreCase(buildActionStrings[3])) {
 					//Deploy
 					temp = MSRCommandType.SolutionRebuildAll;
-				}
+				}			
 			}
 		}
 
-		BigInteger temp1 = currentUserTable.get(temp).get(currentUserPosition);
-		BigInteger temp2 = new BigInteger("1");
+        BigInteger temp1 = currentUserTable.get(temp).get(currentUserPosition);
+        BigInteger temp2 = new BigInteger("1");
 
-		BigInteger temp3 = temp1.add(temp2);
+        BigInteger temp3 = temp1.add(temp2);
 
-		currentUserTable.get(temp).put(currentUserPosition, temp3);
+        currentUserTable.get(temp).put(currentUserPosition, temp3);
 
-	}
-
+    }
+	
 	private void process(DebuggerEvent e) {
 		MSRCommandType temp = MSRCommandType.unknown;
-
-		if ((null != e.Action) && (null != e.Reason)) {
+		
+		if ((null != e.Action) && (null != e.Reason)) {		
 			if (e.Action.equalsIgnoreCase(dbgActionStrings[0])) {
 				if (e.Reason.equalsIgnoreCase(dbgReasonStrings[3])) {
 					temp = MSRCommandType.ExceptionActExceptionNotHandled;
@@ -396,17 +401,17 @@ public class GettingStarted {
 					temp = MSRCommandType.ExecActStopDebugging;
 				} else if (e.Reason.equalsIgnoreCase(dbgReasonStrings[10])) {
 					temp = MSRCommandType.ExecActUserBreak;
-				}
-			}
+				}		
+			} 
 		}
 
-		BigInteger temp1 = currentUserTable.get(temp).get(currentUserPosition);
-		BigInteger temp2 = new BigInteger("1");
+        BigInteger temp1 = currentUserTable.get(temp).get(currentUserPosition);
+        BigInteger temp2 = new BigInteger("1");
 
-		BigInteger temp3 = temp1.add(temp2);
+        BigInteger temp3 = temp1.add(temp2);
 
-		currentUserTable.get(temp).put(currentUserPosition, temp3);
-	}
+        currentUserTable.get(temp).put(currentUserPosition, temp3);
+    }
 
 	private void process(CompletionEvent e) {
 		MSRCommandType temp = MSRCommandType.unknown;
@@ -423,15 +428,15 @@ public class GettingStarted {
 			}
 		}
 
-		BigInteger temp1 = currentUserTable.get(temp).get(currentUserPosition);
-		BigInteger temp2 = new BigInteger("1");
+        BigInteger temp1 = currentUserTable.get(temp).get(currentUserPosition);
+        BigInteger temp2 = new BigInteger("1");
 
-		BigInteger temp3 = temp1.add(temp2);
+        BigInteger temp3 = temp1.add(temp2);
 
-		currentUserTable.get(temp).put(currentUserPosition, temp3);
+        currentUserTable.get(temp).put(currentUserPosition, temp3);
 
-	}
-
+    }
+	
 	private void process(DocumentEvent e) {
 		MSRCommandType temp = MSRCommandType.unknown;
 
@@ -445,15 +450,15 @@ public class GettingStarted {
 			}
 		}
 
-		BigInteger temp1 = currentUserTable.get(temp).get(currentUserPosition);
-		BigInteger temp2 = new BigInteger("1");
+        BigInteger temp1 = currentUserTable.get(temp).get(currentUserPosition);
+        BigInteger temp2 = new BigInteger("1");
 
-		BigInteger temp3 = temp1.add(temp2);
+        BigInteger temp3 = temp1.add(temp2);
 
-		currentUserTable.get(temp).put(currentUserPosition, temp3);
+        currentUserTable.get(temp).put(currentUserPosition, temp3);
 
-	}
-
+    }
+	
 	private void process(FindEvent e) {
 		MSRCommandType temp = MSRCommandType.unknown;
 
@@ -463,15 +468,15 @@ public class GettingStarted {
 			temp = MSRCommandType.FindCompleted;
 		}
 
-		BigInteger temp1 = currentUserTable.get(temp).get(currentUserPosition);
-		BigInteger temp2 = new BigInteger("1");
+        BigInteger temp1 = currentUserTable.get(temp).get(currentUserPosition);
+        BigInteger temp2 = new BigInteger("1");
 
-		BigInteger temp3 = temp1.add(temp2);
+        BigInteger temp3 = temp1.add(temp2);
 
-		currentUserTable.get(temp).put(currentUserPosition, temp3);
+        currentUserTable.get(temp).put(currentUserPosition, temp3);
 
-	}
-
+    }
+	
 	private void process(SolutionEvent e) {
 		MSRCommandType temp = MSRCommandType.unknown;
 
@@ -503,15 +508,15 @@ public class GettingStarted {
 			}
 		}
 
-		BigInteger temp1 = currentUserTable.get(temp).get(currentUserPosition);
-		BigInteger temp2 = new BigInteger("1");
+        BigInteger temp1 = currentUserTable.get(temp).get(currentUserPosition);
+        BigInteger temp2 = new BigInteger("1");
 
-		BigInteger temp3 = temp1.add(temp2);
+        BigInteger temp3 = temp1.add(temp2);
 
-		currentUserTable.get(temp).put(currentUserPosition, temp3);
+        currentUserTable.get(temp).put(currentUserPosition, temp3);
 
-	}
-
+    }
+	
 	private void process(WindowEvent e) {
 		MSRCommandType temp = MSRCommandType.unknown;
 
@@ -529,21 +534,21 @@ public class GettingStarted {
 			}
 		}
 
-		BigInteger temp1 = currentUserTable.get(temp).get(currentUserPosition);
-		BigInteger temp2 = new BigInteger("1");
+        BigInteger temp1 = currentUserTable.get(temp).get(currentUserPosition);
+        BigInteger temp2 = new BigInteger("1");
 
-		BigInteger temp3 = temp1.add(temp2);
+        BigInteger temp3 = temp1.add(temp2);
 
-		currentUserTable.get(temp).put(currentUserPosition, temp3);
+        currentUserTable.get(temp).put(currentUserPosition, temp3);
 
-	}
-
+    }
+	
 	private void process(VersionControlEvent e) {
 
 		if (null != e.Actions) {
 			for (VersionControlAction a : e.Actions) {
 				MSRCommandType temp = MSRCommandType.unknown;
-
+				
 				if (null != a.ActionType) {
 					if (a.ActionType == VersionControlActionType.Unknown) {
 						temp = MSRCommandType.VersionControlUnknown;
@@ -572,18 +577,18 @@ public class GettingStarted {
 					}
 				}
 
-				BigInteger temp1 = currentUserTable.get(temp).get(currentUserPosition);
-				BigInteger temp2 = new BigInteger("1");
+                BigInteger temp1 = currentUserTable.get(temp).get(currentUserPosition);
+                BigInteger temp2 = new BigInteger("1");
 
-				BigInteger temp3 = temp1.add(temp2);
+                BigInteger temp3 = temp1.add(temp2);
 
-				currentUserTable.get(temp).put(currentUserPosition, temp3);
+                currentUserTable.get(temp).put(currentUserPosition, temp3);
 
-			}
+            }
 		}
-
-	}
-
+		
+	}	
+	
 	private void process(NavigationEvent e) {
 		MSRCommandType temp = MSRCommandType.unknown;
 
@@ -599,15 +604,15 @@ public class GettingStarted {
 			}
 		}
 
-		BigInteger temp1 = currentUserTable.get(temp).get(currentUserPosition);
-		BigInteger temp2 = new BigInteger("1");
+        BigInteger temp1 = currentUserTable.get(temp).get(currentUserPosition);
+        BigInteger temp2 = new BigInteger("1");
 
-		BigInteger temp3 = temp1.add(temp2);
+        BigInteger temp3 = temp1.add(temp2);
 
-		currentUserTable.get(temp).put(currentUserPosition, temp3);
+        currentUserTable.get(temp).put(currentUserPosition, temp3);
 
-	}
-
+    }
+	
 	private void process(TestRunEvent e) {
 		MSRCommandType temp = MSRCommandType.unknown;
 
@@ -617,14 +622,14 @@ public class GettingStarted {
 			temp = MSRCommandType.TestRunCompleted;
 		}
 
-		BigInteger temp1 = currentUserTable.get(temp).get(currentUserPosition);
-		BigInteger temp2 = new BigInteger("1");
+        BigInteger temp1 = currentUserTable.get(temp).get(currentUserPosition);
+        BigInteger temp2 = new BigInteger("1");
 
-		BigInteger temp3 = temp1.add(temp2);
+        BigInteger temp3 = temp1.add(temp2);
 
-		currentUserTable.get(temp).put(currentUserPosition, temp3);
+        currentUserTable.get(temp).put(currentUserPosition, temp3);
 
-	}
+    }
 
 /*	private void processBasic(IDEEvent e) {
 		String eventType = e.getClass().getSimpleName();
