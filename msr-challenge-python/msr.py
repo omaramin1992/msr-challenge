@@ -104,13 +104,15 @@ test_commands_percentage = 0
 test_command_users_count = [0, 0, 0, 0, 0, 0]
 test_commands = ['TestRunCompleted', 'TestRunAborted']
 
-categories_counts = []
-
 nonzero_commands = []
-
 
 for command in data:
     commands.append(command)
+for command in data:
+    if command == 'unknown':
+        print()
+    else:
+        nonzero_commands.append(command)
 print(len(commands))
 print(commands)
 
@@ -130,14 +132,14 @@ total_count_list_nonzero = []
 for command in commands:
     print()
     total_count_per_command = 0
-    # print(command)
+    print(command)
     for key, value in data[command].items():
         total_count_per_command += value
         total_count += value
-        # print("\t", key, value)
-    # print("\tTotal count: ", total_count_per_command)
+        print("\t", key, value)
+    print("\tTotal count: ", total_count_per_command)
     total_count_list.append(total_count_per_command)
-    if total_count_per_command > 0:
+    if 50 > total_count_per_command > 0:
         nonzero_commands.append(command)
         total_count_list_nonzero.append(total_count_per_command)
 
@@ -169,7 +171,7 @@ for unknown_command in unknown_commands:
             unknown_command_users_count[4] += value
         elif key == 'SoftwareEngineer':
             unknown_command_users_count[5] += value
-unknown_commands_percentage = unknown_commands_total / total_count
+unknown_commands_percentage = (unknown_commands_total / total_count) * 100
 print("Unknown Command Users count: ", unknown_command_users_count)
 print("Unknown command total count: ", unknown_commands_total)
 print("Unknown Command percentage: ", unknown_commands_percentage)
@@ -190,7 +192,7 @@ for build_command in build_commands:
             build_command_users_count[4] += value
         elif key == 'SoftwareEngineer':
             build_command_users_count[5] += value
-build_commands_percentage = build_commands_total / total_count
+build_commands_percentage = (build_commands_total / total_count) * 100
 print("Build Command Users count: ", build_command_users_count)
 print("Build command total count: ", build_commands_total)
 print("Build Command percentage: ", build_commands_percentage)
@@ -211,7 +213,7 @@ for debug_command in debug_commands:
             debug_command_users_count[4] += value
         elif key == 'SoftwareEngineer':
             debug_command_users_count[5] += value
-debug_commands_percentage = debug_commands_total / total_count
+debug_commands_percentage = (debug_commands_total / total_count) * 100
 print("Debug Command Users count: ", debug_command_users_count)
 print("Debug command total count: ", debug_commands_total)
 print("Debug Command percentage: ", debug_commands_percentage)
@@ -232,7 +234,7 @@ for completion_command in completion_commands:
             completion_command_users_count[4] += value
         elif key == 'SoftwareEngineer':
             completion_command_users_count[5] += value
-completion_commands_percentage = completion_commands_total / total_count
+completion_commands_percentage = (completion_commands_total / total_count) * 100
 print("Completion Command Users count: ", completion_command_users_count)
 print("Completion command total count: ", completion_commands_total)
 print("Completion Command percentage: ", completion_commands_percentage)
@@ -253,7 +255,7 @@ for documents_command in documents_commands:
             documents_command_users_count[4] += value
         elif key == 'SoftwareEngineer':
             documents_command_users_count[5] += value
-documents_commands_percentage = documents_commands_total / total_count
+documents_commands_percentage = (documents_commands_total / total_count) * 100
 print("Documents Command Users count: ", documents_command_users_count)
 print("Documents command total count: ", documents_commands_total)
 print("Documents Command percentage: ", documents_commands_percentage)
@@ -274,7 +276,7 @@ for find_command in find_commands:
             find_command_users_count[4] += value
         elif key == 'SoftwareEngineer':
             find_command_users_count[5] += value
-find_commands_percentage = find_commands_total / total_count
+find_commands_percentage = (find_commands_total / total_count) * 100
 print("Find Command Users count: ", find_command_users_count)
 print("Find command total count: ", find_commands_total)
 print("Find Command percentage: ", find_commands_percentage)
@@ -295,7 +297,7 @@ for solution_command in solution_commands:
             solution_command_users_count[4] += value
         elif key == 'SoftwareEngineer':
             solution_command_users_count[5] += value
-solution_commands_percentage = solution_commands_total / total_count
+solution_commands_percentage = (solution_commands_total / total_count) * 100
 print("Solution Command Users count: ", solution_command_users_count)
 print("Solution command total count: ", solution_commands_total)
 print("Solution Command percentage: ", solution_commands_percentage)
@@ -316,7 +318,7 @@ for window_command in window_commands:
             window_command_users_count[4] += value
         elif key == 'SoftwareEngineer':
             window_command_users_count[5] += value
-window_commands_percentage = window_commands_total / total_count
+window_commands_percentage = (window_commands_total / total_count) * 100
 print("Window Command Users count: ", window_command_users_count)
 print("Window command total count: ", window_commands_total)
 print("Window Command percentage: ", window_commands_percentage)
@@ -337,7 +339,7 @@ for vc_command in version_control_commands:
             vc_command_users_count[4] += value
         elif key == 'SoftwareEngineer':
             vc_command_users_count[5] += value
-vc_commands_percentage = vc_commands_total / total_count
+vc_commands_percentage = (vc_commands_total / total_count) * 100
 print("VC Command Users count: ", vc_command_users_count)
 print("VC command total count: ", vc_commands_total)
 print("VC Command percentage: ", vc_commands_percentage)
@@ -358,7 +360,7 @@ for nav_command in navigation_commands:
             nav_command_users_count[4] += value
         elif key == 'SoftwareEngineer':
             nav_command_users_count[5] += value
-nav_commands_percentage = nav_commands_total / total_count
+nav_commands_percentage = (nav_commands_total / total_count) * 100
 print("Navigation Command Users count: ", nav_command_users_count)
 print("Navigation command total count: ", nav_commands_total)
 print("Navigation Command percentage: ", nav_commands_percentage)
@@ -379,7 +381,7 @@ for test_command in test_commands:
             test_command_users_count[4] += value
         elif key == 'SoftwareEngineer':
             test_command_users_count[5] += value
-test_commands_percentage = test_commands_total / total_count
+test_commands_percentage = (test_commands_total / total_count) * 100
 print("Test Command Users count: ", test_command_users_count)
 print("Test command total count: ", test_commands_total)
 print("Test Command percentage: ", test_commands_percentage)
@@ -391,19 +393,26 @@ percentages = [unknown_commands_percentage, build_commands_percentage, debug_com
                solution_commands_percentage, window_commands_percentage, vc_commands_percentage,
                nav_commands_percentage, test_commands_percentage]
 
-total_perc = 0
-for perc in percentages:
-    total_perc += perc
-    new_perc = round(perc, 4)
-    print(new_perc)
-print(total_perc)
+categories = ['Build', 'Debug', 'Completion', 'Documents', 'Find', 'Solution', 'Window', 'VC', 'Nav', 'Test']
+categories_total_counts = [build_commands_total, debug_commands_total,
+                           completion_commands_total, documents_commands_total, find_commands_total,
+                           solution_commands_total, window_commands_total, vc_commands_total,
+                           nav_commands_total, test_commands_total]
+
+total_percentage = 0
+for percentage in percentages:
+    total_percentage += percentage
+    new_percentage = round(percentage, 2)
+    print(new_percentage)
+print(total_percentage)
+print(categories_total_counts)
 # for
 data_file.close()
 
 # create data frame
-raw_data = {'command': nonzero_commands,
-            'total_count': total_count_list_nonzero}
-df = pd.DataFrame(raw_data, columns=['command', 'total_count'])
+raw_data = {'command': categories,
+            'categories_total_count': categories_total_counts}
+df = pd.DataFrame(raw_data, columns=['command', 'categories_total_count'])
 df
 
 # create data frame
@@ -417,17 +426,17 @@ df
 
 
 # Setting the positions and width for the bars
-pos = list(range(len(df['total_count'])))
-width = 0.15
+pos = list(range(len(df['categories_total_count'])))
+width = 0.5
 
 # Plotting the bars
 fig, ax = plt.subplots(figsize=(10, 5))
 
 # Create a bar with total_count data,
 # in position pos,
-plt.bar(pos,
+plt.bar([p + 1.5 * width for p in pos],
         # using df['pre_score'] data,
-        df['total_count'],
+        df['categories_total_count'],
         # of width
         width,
         # with alpha 0.5
@@ -435,7 +444,8 @@ plt.bar(pos,
         # with color
         color='#EE3224',
         # with label the first value in commands
-        label=df['command'][0])
+        label=categories,
+        align='center')
 
 # # Create a bar with mid_score data,
 # # in position pos + some width buffer,
@@ -469,7 +479,7 @@ plt.bar(pos,
 ax.set_ylabel('Counts')
 
 # Set the chart's title
-ax.set_title('Total Counts of Commands')
+ax.set_title('Total Counts of Commands per Category')
 
 # Set the position of the x ticks
 ax.set_xticks([p + 1.5 * width for p in pos])
@@ -479,7 +489,7 @@ ax.set_xticklabels(df['command'])
 
 # Setting the x-axis and y-axis limits
 plt.xlim(min(pos) - width, max(pos) + width * 4)
-plt.ylim([0, max(df['total_count'])])
+plt.ylim([0, max(df['categories_total_count'])])
 
 # Adding the legend and showing the plot
 plt.legend(['Total Count'], loc='upper left')
