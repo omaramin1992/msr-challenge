@@ -6,33 +6,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-
 # TODO: Commands overall graph with users combined
 # TODO: for each of high level commands we explore users (graph)
 # TODO: breaking down Navigation, Auto completion
 # TODO: Comparing the importance of tests between different users
 
-
-def data_parser(text, dic):
-    for i, j in dic.items():
-        text = text.replace(i, j)
-        # print(text)
-    return '"' + text
-
-
-# reading data from file
-# input_file = open('output.txt', 'r')
-# output_file = open('output.json', 'w')
-# my_text = input_file.readlines()
-reps = {'=': '": ', '{': '{"', ', ': ', "'}
-# output_file.writelines('{')
-# for line in my_text:
-#     output_file.writelines(data_parser(line, reps))
-# output_file.writelines('}')
-
 with open('output.json', 'r') as data_file:
     data = json.load(data_file)
-# pprint(data)
 commands = []
 
 total_count = 0
@@ -129,7 +109,6 @@ print()
 total_count_list = []
 total_count_list_nonzero = []
 
-# counting the total number of commands
 for command in commands:
     print()
     total_count_per_command = 0
@@ -155,9 +134,8 @@ print("Length of Total count nonzero list: ", len(nonzero_commands))
 print(total_count_list_nonzero)
 print()
 print("Total count of commands: ", total_count)
-print()
 
-# counting number of users in each category and calculating the percentages
+print()
 for unknown_command in unknown_commands:
     for key, value in data[unknown_command].items():
         unknown_commands_total += value
@@ -177,8 +155,8 @@ unknown_commands_percentage = (unknown_commands_total / total_count) * 100
 print("Unknown Command Users count: ", unknown_command_users_count)
 print("Unknown command total count: ", unknown_commands_total)
 print("Unknown Command percentage: ", unknown_commands_percentage)
-print()
 
+print()
 for build_command in build_commands:
     for key, value in data[build_command].items():
         build_commands_total += value
@@ -198,8 +176,8 @@ build_commands_percentage = (build_commands_total / total_count) * 100
 print("Build Command Users count: ", build_command_users_count)
 print("Build command total count: ", build_commands_total)
 print("Build Command percentage: ", build_commands_percentage)
-print()
 
+print()
 for debug_command in debug_commands:
     for key, value in data[debug_command].items():
         debug_commands_total += value
@@ -219,8 +197,8 @@ debug_commands_percentage = (debug_commands_total / total_count) * 100
 print("Debug Command Users count: ", debug_command_users_count)
 print("Debug command total count: ", debug_commands_total)
 print("Debug Command percentage: ", debug_commands_percentage)
-print()
 
+print()
 for completion_command in completion_commands:
     for key, value in data[completion_command].items():
         completion_commands_total += value
@@ -240,8 +218,8 @@ completion_commands_percentage = (completion_commands_total / total_count) * 100
 print("Completion Command Users count: ", completion_command_users_count)
 print("Completion command total count: ", completion_commands_total)
 print("Completion Command percentage: ", completion_commands_percentage)
-print()
 
+print()
 for documents_command in documents_commands:
     for key, value in data[documents_command].items():
         documents_commands_total += value
@@ -261,8 +239,8 @@ documents_commands_percentage = (documents_commands_total / total_count) * 100
 print("Documents Command Users count: ", documents_command_users_count)
 print("Documents command total count: ", documents_commands_total)
 print("Documents Command percentage: ", documents_commands_percentage)
-print()
 
+print()
 for find_command in find_commands:
     for key, value in data[find_command].items():
         find_commands_total += value
@@ -387,6 +365,7 @@ test_commands_percentage = (test_commands_total / total_count) * 100
 print("Test Command Users count: ", test_command_users_count)
 print("Test command total count: ", test_commands_total)
 print("Test Command percentage: ", test_commands_percentage)
+
 print()
 
 percentages = [unknown_commands_percentage, build_commands_percentage, debug_commands_percentage,
@@ -395,11 +374,24 @@ percentages = [unknown_commands_percentage, build_commands_percentage, debug_com
                nav_commands_percentage, test_commands_percentage]
 
 categories = ['Build', 'Debug', 'Completion', 'Documents', 'Find', 'Solution', 'Window', 'VC', 'Nav', 'Test']
+
+categories_list = [build_commands, debug_commands,
+                   completion_commands, documents_commands, find_commands,
+                   solution_commands, window_commands, version_control_commands,
+                   navigation_commands, test_commands]
+
+categories_users_count = [build_command_users_count, debug_command_users_count,
+                          completion_command_users_count, documents_command_users_count, find_command_users_count,
+                          solution_command_users_count, window_command_users_count, vc_command_users_count,
+                          nav_command_users_count, test_command_users_count]
+
 categories_total_counts = [build_commands_total, debug_commands_total,
                            completion_commands_total, documents_commands_total, find_commands_total,
                            solution_commands_total, window_commands_total, vc_commands_total,
                            nav_commands_total, test_commands_total]
 
+rando = [category[1] for category in categories_users_count]
+print("TESTSTSTS:    ", rando)
 total_percentage = 0
 for percentage in percentages:
     total_percentage += percentage
@@ -412,8 +404,14 @@ data_file.close()
 
 # create data frame
 raw_data = {'command': categories,
-            'categories_total_count': categories_total_counts}
-df = pd.DataFrame(raw_data, columns=['command', 'categories_total_count'])
+            'HobbyProgrammer': [category[1] for category in categories_users_count],
+            'Student': [category[2] for category in categories_users_count],
+            'ResearcherAcademic': [category[3] for category in categories_users_count],
+            'ResearcherIndustry': [category[4] for category in categories_users_count],
+            'SoftwareEngineer': [category[5] for category in categories_users_count]}
+df = pd.DataFrame(raw_data,
+                  columns=['command', 'HobbyProgrammer', 'Student', 'ResearcherAcademic', 'ResearcherIndustry',
+                           'SoftwareEngineer'])
 df
 
 # create data frame
@@ -427,17 +425,17 @@ df
 
 
 # Setting the positions and width for the bars
-pos = list(range(len(df['categories_total_count'])))
-width = 0.5
+pos = list(range(len(df['HobbyProgrammer'])))
+width = 0.1
 
 # Plotting the bars
 fig, ax = plt.subplots(figsize=(10, 5))
 
 # Create a bar with total_count data,
 # in position pos,
-plt.bar([p + 1.5 * width for p in pos],
+plt.bar(pos,
         # using df['pre_score'] data,
-        df['categories_total_count'],
+        df['HobbyProgrammer'],
         # of width
         width,
         # with alpha 0.5
@@ -448,33 +446,53 @@ plt.bar([p + 1.5 * width for p in pos],
         label=categories,
         align='center')
 
-# # Create a bar with mid_score data,
-# # in position pos + some width buffer,
-# plt.bar([p + width for p in pos],
-#         # using df['mid_score'] data,
-#         df['mid_score'],
-#         # of width
-#         width,
-#         # with alpha 0.5
-#         alpha=0.5,
-#         # with color
-#         color='#F78F1E',
-#         # with label the second value in first_name
-#         label=df['first_name'][1])
+# Create a bar with mid_score data,
+# in position pos + some width buffer,
+plt.bar([p + width for p in pos],
+        # using df['mid_score'] data,
+        df['Student'],
+        # of width
+        width,
+        # with alpha 0.5
+        alpha=0.5,
+        # with color
+        color='#F78F1E')
 
-# # Create a bar with post_score data,
-# # in position pos + some width buffer,
-# plt.bar([p + width * 2 for p in pos],
-#         # using df['post_score'] data,
-#         df['post_score'],
-#         # of width
-#         width,
-#         # with alpha 0.5
-#         alpha=0.5,
-#         # with color
-#         color='#FFC222',
-#         # with label the third value in first_name
-#         label=df['first_name'][2])
+# Create a bar with post_score data,
+# in position pos + some width buffer,
+plt.bar([p + width * 2 for p in pos],
+        # using df['post_score'] data,
+        df['ResearcherAcademic'],
+        # of width
+        width,
+        # with alpha 0.5
+        alpha=0.5,
+        # with color
+        color='#FFC222')
+
+# Create a bar with post_score data,
+# in position pos + some width buffer,
+plt.bar([p + width * 3 for p in pos],
+        # using df['post_score'] data,
+        df['ResearcherIndustry'],
+        # of width
+        width,
+        # with alpha 0.5
+        alpha=0.5,
+        # with color
+        color='blue')
+
+# Create a bar with post_score data,
+# in position pos + some width buffer,
+plt.bar([p + width * 4 for p in pos],
+        # using df['post_score'] data,
+        df['SoftwareEngineer'],
+        # of width
+        width,
+        # with alpha 0.5
+        alpha=0.5,
+        # with color
+        color='green')
 
 # Set the y axis label
 ax.set_ylabel('Counts')
@@ -490,9 +508,12 @@ ax.set_xticklabels(df['command'])
 
 # Setting the x-axis and y-axis limits
 plt.xlim(min(pos) - width, max(pos) + width * 4)
-plt.ylim([0, max(df['categories_total_count'])])
+# plt.ylim([0, max(df['HobbyProgrammer'] + df['Student'] + df['ResearcherAcademic'] + df['ResearcherIndustry'] + df[
+#     'SoftwareEngineer'])])
+plt.ylim([0, 300000])
 
 # Adding the legend and showing the plot
-plt.legend(['Total Count'], loc='upper left')
+plt.legend(['HobbyProgrammer', 'Student', 'ResearcherAcademic', 'ResearcherIndustry', 'SoftwareEngineer'],
+           loc='upper left')
 plt.grid()
 plt.show()
