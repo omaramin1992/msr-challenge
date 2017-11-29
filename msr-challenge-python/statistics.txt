@@ -1,0 +1,45 @@
+Total count of commands:  1545364
+
+Unknown Command Users count:  [17977, 1300, 2984, 6778, 0, 26396]
+Unknown command total count:  55435
+Unknown Command percentage:  3.5871807548254004
+
+Build Command Users count:  [4573, 708, 709, 93, 201, 6145]
+Build command total count:  12429
+Build Command percentage:  0.8042765329074574
+
+Debug Command Users count:  [10486, 364, 1991, 4902, 0, 17729]
+Debug command total count:  35472
+Debug Command percentage:  2.295381541177354
+
+Completion Command Users count:  [50225, 18573, 3200, 31926, 468, 95474]
+Completion command total count:  199866
+Completion Command percentage:  12.933263619444999
+
+Documents Command Users count:  [38108, 9794, 6457, 27916, 1264, 83538]
+Documents command total count:  167077
+Documents Command percentage:  10.811498132478821
+
+Find Command Users count:  [62, 14, 7, 12, 1, 194]
+Find command total count:  290
+Find Command percentage:  0.018765805337771554
+
+Solution Command Users count:  [8159, 1909, 378, 1050, 57, 21953]
+Solution command total count:  33506
+Solution Command percentage:  2.168162322921978
+
+Window Command Users count:  [143894, 39724, 27391, 53509, 3640, 291362]
+Window command total count:  559520
+Window Command percentage:  36.20635656065497
+
+VC Command Users count:  [13667, 11988, 8491, 46748, 8, 109870]
+VC command total count:  190772
+VC Command percentage:  12.344793847921913
+
+Navigation Command Users count:  [59234, 32167, 11027, 53261, 703, 131005]
+Navigation command total count:  287397
+Navigation Command percentage:  18.59736605744666
+
+Test Command Users count:  [78, 62, 3, 2200, 0, 1257]
+Test command total count:  3600
+Test Command percentage:  0.23295482488268135

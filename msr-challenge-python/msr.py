@@ -407,7 +407,6 @@ for percentage in percentages:
     print(new_percentage)
 print(total_percentage)
 print(categories_total_counts)
-# for
 data_file.close()
 
 # create data frame
@@ -415,16 +414,6 @@ raw_data = {'command': categories,
             'categories_total_count': categories_total_counts}
 df = pd.DataFrame(raw_data, columns=['command', 'categories_total_count'])
 df
-
-# create data frame
-# raw_data = {'first_name': ['Unknown', 'HobbyProgrammer', 'Student', 'ResAcademic', 'ResIndustry',
-#                            'SWEngineer'],
-#             'pre_score': [4, 24, 31, 2, 3, 5],
-#             'mid_score': [25, 94, 57, 62, 70, 6],
-#             'post_score': [5, 43, 23, 23, 51, 7]}
-# df = pd.DataFrame(raw_data, columns=['first_name', 'pre_score', 'mid_score', 'post_score'])
-# df
-
 
 # Setting the positions and width for the bars
 pos = list(range(len(df['categories_total_count'])))
@@ -448,34 +437,6 @@ plt.bar([p + 1.5 * width for p in pos],
         label=categories,
         align='center')
 
-# # Create a bar with mid_score data,
-# # in position pos + some width buffer,
-# plt.bar([p + width for p in pos],
-#         # using df['mid_score'] data,
-#         df['mid_score'],
-#         # of width
-#         width,
-#         # with alpha 0.5
-#         alpha=0.5,
-#         # with color
-#         color='#F78F1E',
-#         # with label the second value in first_name
-#         label=df['first_name'][1])
-
-# # Create a bar with post_score data,
-# # in position pos + some width buffer,
-# plt.bar([p + width * 2 for p in pos],
-#         # using df['post_score'] data,
-#         df['post_score'],
-#         # of width
-#         width,
-#         # with alpha 0.5
-#         alpha=0.5,
-#         # with color
-#         color='#FFC222',
-#         # with label the third value in first_name
-#         label=df['first_name'][2])
-
 # Set the y axis label
 ax.set_ylabel('Counts')
 
@@ -487,6 +448,7 @@ ax.set_xticks([p + 1.5 * width for p in pos])
 
 # Set the labels for the x ticks
 ax.set_xticklabels(df['command'])
+plt.setp(ax.get_xticklabels(), rotation=20, horizontalalignment='right')
 
 # Setting the x-axis and y-axis limits
 plt.xlim(min(pos) - width, max(pos) + width * 4)

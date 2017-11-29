@@ -6,13 +6,33 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 # TODO: Commands overall graph with users combined
 # TODO: for each of high level commands we explore users (graph)
 # TODO: breaking down Navigation, Auto completion
 # TODO: Comparing the importance of tests between different users
 
+
+def data_parser(text, dic):
+    for i, j in dic.items():
+        text = text.replace(i, j)
+        # print(text)
+    return '"' + text
+
+
+# reading data from file
+# input_file = open('output.txt', 'r')
+# output_file = open('output.json', 'w')
+# my_text = input_file.readlines()
+reps = {'=': '": ', '{': '{"', ', ': ', "'}
+# output_file.writelines('{')
+# for line in my_text:
+#     output_file.writelines(data_parser(line, reps))
+# output_file.writelines('}')
+
 with open('output.json', 'r') as data_file:
     data = json.load(data_file)
+# pprint(data)
 commands = []
 
 total_count = 0
@@ -25,12 +45,14 @@ unknown_commands = ['unknown']
 build_commands_total = 0
 build_commands_percentage = 0
 build_command_users_count = [0, 0, 0, 0, 0, 0]
+build_commands_count = []
 build_commands = ['BatchBuild', 'BatchClean', 'BatchDeploy', 'BatchRebuildAll',
                   'ProjectBuild', 'ProjectClean', 'ProjectDeploy', 'ProjectRebuildAll',
                   'SolutionBuild', 'SolutionClean', 'SolutionDeploy', 'SolutionRebuildAll']
 
 debug_commands_total = 0
 debug_commands_percentage = 0
+debug_commands_count = []
 debug_command_users_count = [0, 0, 0, 0, 0, 0]
 debug_commands = ['ExecActAttachProgram', 'ExecActBreakpoint', 'ExecActEndProgram', 'ExecActExceptionNotHandled',
                   'ExceptionActExceptionNotHandled', 'ExecActExceptionThrown', 'ExceptionActExceptionThrown',
@@ -39,21 +61,25 @@ debug_commands = ['ExecActAttachProgram', 'ExecActBreakpoint', 'ExecActEndProgra
 
 completion_commands_total = 0
 completion_commands_percentage = 0
+completion_commands_count = []
 completion_command_users_count = [0, 0, 0, 0, 0, 0]
 completion_commands = ['CompletionApplied', 'CompletionCancelled', 'CompletionFiltered', 'CompletionUnkown']
 
 documents_commands_total = 0
 documents_commands_percentage = 0
+documents_commands_count = []
 documents_command_users_count = [0, 0, 0, 0, 0, 0]
 documents_commands = ['DocumentOpened', 'DocumentSaved', 'DocumentClosed']
 
 find_commands_total = 0
 find_commands_percentage = 0
+find_commands_count = []
 find_command_users_count = [0, 0, 0, 0, 0, 0]
 find_commands = ['FindCompleted', 'FindCancelled']
 
 solution_commands_total = 0
 solution_commands_percentage = 0
+solution_commands_count = []
 solution_command_users_count = [0, 0, 0, 0, 0, 0]
 solution_commands = ['SolutionOpened', 'SolutionRenamed', 'SolutionClosed', 'SolutionItemAdded', 'SolutionItemRenamed',
                      'SolutionItemRemoved',
@@ -62,11 +88,13 @@ solution_commands = ['SolutionOpened', 'SolutionRenamed', 'SolutionClosed', 'Sol
 
 window_commands_total = 0
 window_commands_percentage = 0
+window_commands_count = []
 window_command_users_count = [0, 0, 0, 0, 0, 0]
 window_commands = ['WindowCreated', 'WindowActivated', 'WindowMoved', 'WindowClosed', 'WindowDeactivated']
 
 vc_commands_total = 0
 vc_commands_percentage = 0
+vc_commands_count = []
 vc_command_users_count = [0, 0, 0, 0, 0, 0]
 version_control_commands = ['VersionControlUnknown', 'VersionControlBranch', 'VersionControlCheckout',
                             'VersionControlClone', 'VersionControlCommit',
@@ -76,11 +104,13 @@ version_control_commands = ['VersionControlUnknown', 'VersionControlBranch', 'Ve
 
 nav_commands_total = 0
 nav_commands_percentage = 0
+nav_commands_count = []
 nav_command_users_count = [0, 0, 0, 0, 0, 0]
 navigation_commands = ['NavigationUnknown', 'NavigationCtrlClick', 'NavigationClick', 'NavigationKeyboard']
 
 test_commands_total = 0
 test_commands_percentage = 0
+test_commands_count = []
 test_command_users_count = [0, 0, 0, 0, 0, 0]
 test_commands = ['TestRunCompleted', 'TestRunAborted']
 
@@ -158,20 +188,28 @@ print("Unknown Command percentage: ", unknown_commands_percentage)
 
 print()
 for build_command in build_commands:
+    commands_list = [0, 0, 0, 0, 0, 0]
     for key, value in data[build_command].items():
         build_commands_total += value
         if key == 'Unknown':
             build_command_users_count[0] += value
+            commands_list[0] = value
         elif key == 'HobbyProgrammer':
             build_command_users_count[1] += value
+            commands_list[1] = value
         elif key == 'Student':
             build_command_users_count[2] += value
+            commands_list[2] = value
         elif key == 'ResearcherAcademic':
             build_command_users_count[3] += value
+            commands_list[3] = value
         elif key == 'ResearcherIndustry':
             build_command_users_count[4] += value
+            commands_list[4] = value
         elif key == 'SoftwareEngineer':
             build_command_users_count[5] += value
+            commands_list[5] = value
+    build_commands_count.append(commands_list)
 build_commands_percentage = (build_commands_total / total_count) * 100
 print("Build Command Users count: ", build_command_users_count)
 print("Build command total count: ", build_commands_total)
@@ -179,20 +217,28 @@ print("Build Command percentage: ", build_commands_percentage)
 
 print()
 for debug_command in debug_commands:
+    commands_list = [0, 0, 0, 0, 0, 0]
     for key, value in data[debug_command].items():
         debug_commands_total += value
         if key == 'Unknown':
             debug_command_users_count[0] += value
+            commands_list[0] = value
         elif key == 'HobbyProgrammer':
             debug_command_users_count[1] += value
+            commands_list[1] = value
         elif key == 'Student':
             debug_command_users_count[2] += value
+            commands_list[2] = value
         elif key == 'ResearcherAcademic':
             debug_command_users_count[3] += value
+            commands_list[3] = value
         elif key == 'ResearcherIndustry':
             debug_command_users_count[4] += value
+            commands_list[4] = value
         elif key == 'SoftwareEngineer':
             debug_command_users_count[5] += value
+            commands_list[5] = value
+    debug_commands_count.append(commands_list)
 debug_commands_percentage = (debug_commands_total / total_count) * 100
 print("Debug Command Users count: ", debug_command_users_count)
 print("Debug command total count: ", debug_commands_total)
@@ -200,20 +246,28 @@ print("Debug Command percentage: ", debug_commands_percentage)
 
 print()
 for completion_command in completion_commands:
+    commands_list = [0, 0, 0, 0, 0, 0]
     for key, value in data[completion_command].items():
         completion_commands_total += value
         if key == 'Unknown':
             completion_command_users_count[0] += value
+            commands_list[0] = value
         elif key == 'HobbyProgrammer':
             completion_command_users_count[1] += value
+            commands_list[1] = value
         elif key == 'Student':
             completion_command_users_count[2] += value
+            commands_list[2] = value
         elif key == 'ResearcherAcademic':
             completion_command_users_count[3] += value
+            commands_list[3] = value
         elif key == 'ResearcherIndustry':
             completion_command_users_count[4] += value
+            commands_list[4] = value
         elif key == 'SoftwareEngineer':
             completion_command_users_count[5] += value
+            commands_list[5] = value
+    completion_commands_count.append(commands_list)
 completion_commands_percentage = (completion_commands_total / total_count) * 100
 print("Completion Command Users count: ", completion_command_users_count)
 print("Completion command total count: ", completion_commands_total)
@@ -221,20 +275,28 @@ print("Completion Command percentage: ", completion_commands_percentage)
 
 print()
 for documents_command in documents_commands:
+    commands_list = [0, 0, 0, 0, 0, 0]
     for key, value in data[documents_command].items():
         documents_commands_total += value
         if key == 'Unknown':
             documents_command_users_count[0] += value
+            commands_list[0] = value
         elif key == 'HobbyProgrammer':
             documents_command_users_count[1] += value
+            commands_list[1] = value
         elif key == 'Student':
             documents_command_users_count[2] += value
+            commands_list[2] = value
         elif key == 'ResearcherAcademic':
             documents_command_users_count[3] += value
+            commands_list[3] = value
         elif key == 'ResearcherIndustry':
             documents_command_users_count[4] += value
+            commands_list[4] = value
         elif key == 'SoftwareEngineer':
             documents_command_users_count[5] += value
+            commands_list[5] = value
+    documents_commands_count.append(commands_list)
 documents_commands_percentage = (documents_commands_total / total_count) * 100
 print("Documents Command Users count: ", documents_command_users_count)
 print("Documents command total count: ", documents_commands_total)
@@ -242,20 +304,28 @@ print("Documents Command percentage: ", documents_commands_percentage)
 
 print()
 for find_command in find_commands:
+    commands_list = [0, 0, 0, 0, 0, 0]
     for key, value in data[find_command].items():
         find_commands_total += value
         if key == 'Unknown':
             find_command_users_count[0] += value
+            commands_list[0] = value
         elif key == 'HobbyProgrammer':
             find_command_users_count[1] += value
+            commands_list[1] = value
         elif key == 'Student':
             find_command_users_count[2] += value
+            commands_list[2] = value
         elif key == 'ResearcherAcademic':
             find_command_users_count[3] += value
+            commands_list[3] = value
         elif key == 'ResearcherIndustry':
             find_command_users_count[4] += value
+            commands_list[4] = value
         elif key == 'SoftwareEngineer':
             find_command_users_count[5] += value
+            commands_list[5] = value
+    find_commands_count.append(commands_list)
 find_commands_percentage = (find_commands_total / total_count) * 100
 print("Find Command Users count: ", find_command_users_count)
 print("Find command total count: ", find_commands_total)
@@ -263,20 +333,28 @@ print("Find Command percentage: ", find_commands_percentage)
 print()
 
 for solution_command in solution_commands:
+    commands_list = [0, 0, 0, 0, 0, 0]
     for key, value in data[solution_command].items():
         solution_commands_total += value
         if key == 'Unknown':
             solution_command_users_count[0] += value
+            commands_list[0] = value
         elif key == 'HobbyProgrammer':
             solution_command_users_count[1] += value
+            commands_list[1] = value
         elif key == 'Student':
             solution_command_users_count[2] += value
+            commands_list[2] = value
         elif key == 'ResearcherAcademic':
             solution_command_users_count[3] += value
+            commands_list[3] = value
         elif key == 'ResearcherIndustry':
             solution_command_users_count[4] += value
+            commands_list[4] = value
         elif key == 'SoftwareEngineer':
             solution_command_users_count[5] += value
+            commands_list[5] = value
+    solution_commands_count.append(commands_list)
 solution_commands_percentage = (solution_commands_total / total_count) * 100
 print("Solution Command Users count: ", solution_command_users_count)
 print("Solution command total count: ", solution_commands_total)
@@ -284,20 +362,28 @@ print("Solution Command percentage: ", solution_commands_percentage)
 print()
 
 for window_command in window_commands:
+    commands_list = [0, 0, 0, 0, 0, 0]
     for key, value in data[window_command].items():
         window_commands_total += value
         if key == 'Unknown':
             window_command_users_count[0] += value
+            commands_list[0] = value
         elif key == 'HobbyProgrammer':
             window_command_users_count[1] += value
+            commands_list[1] = value
         elif key == 'Student':
             window_command_users_count[2] += value
+            commands_list[2] = value
         elif key == 'ResearcherAcademic':
             window_command_users_count[3] += value
+            commands_list[3] = value
         elif key == 'ResearcherIndustry':
             window_command_users_count[4] += value
+            commands_list[4] = value
         elif key == 'SoftwareEngineer':
             window_command_users_count[5] += value
+            commands_list[5] = value
+    window_commands_count.append(commands_list)
 window_commands_percentage = (window_commands_total / total_count) * 100
 print("Window Command Users count: ", window_command_users_count)
 print("Window command total count: ", window_commands_total)
@@ -305,20 +391,28 @@ print("Window Command percentage: ", window_commands_percentage)
 print()
 
 for vc_command in version_control_commands:
+    commands_list = [0, 0, 0, 0, 0, 0]
     for key, value in data[vc_command].items():
         vc_commands_total += value
         if key == 'Unknown':
             vc_command_users_count[0] += value
+            commands_list[0] = value
         elif key == 'HobbyProgrammer':
             vc_command_users_count[1] += value
+            commands_list[1] = value
         elif key == 'Student':
             vc_command_users_count[2] += value
+            commands_list[2] = value
         elif key == 'ResearcherAcademic':
             vc_command_users_count[3] += value
+            commands_list[3] = value
         elif key == 'ResearcherIndustry':
             vc_command_users_count[4] += value
+            commands_list[4] = value
         elif key == 'SoftwareEngineer':
             vc_command_users_count[5] += value
+            commands_list[5] = value
+    vc_commands_count.append(commands_list)
 vc_commands_percentage = (vc_commands_total / total_count) * 100
 print("VC Command Users count: ", vc_command_users_count)
 print("VC command total count: ", vc_commands_total)
@@ -326,20 +420,28 @@ print("VC Command percentage: ", vc_commands_percentage)
 print()
 
 for nav_command in navigation_commands:
+    commands_list = [0, 0, 0, 0, 0, 0]
     for key, value in data[nav_command].items():
         nav_commands_total += value
         if key == 'Unknown':
             nav_command_users_count[0] += value
+            commands_list[0] = value
         elif key == 'HobbyProgrammer':
             nav_command_users_count[1] += value
+            commands_list[1] = value
         elif key == 'Student':
             nav_command_users_count[2] += value
+            commands_list[2] = value
         elif key == 'ResearcherAcademic':
             nav_command_users_count[3] += value
+            commands_list[3] = value
         elif key == 'ResearcherIndustry':
             nav_command_users_count[4] += value
+            commands_list[4] = value
         elif key == 'SoftwareEngineer':
             nav_command_users_count[5] += value
+            commands_list[5] = value
+    nav_commands_count.append(commands_list)
 nav_commands_percentage = (nav_commands_total / total_count) * 100
 print("Navigation Command Users count: ", nav_command_users_count)
 print("Navigation command total count: ", nav_commands_total)
@@ -347,20 +449,28 @@ print("Navigation Command percentage: ", nav_commands_percentage)
 print()
 
 for test_command in test_commands:
+    commands_list = [0, 0, 0, 0, 0, 0]
     for key, value in data[test_command].items():
         test_commands_total += value
         if key == 'Unknown':
             test_command_users_count[0] += value
+            commands_list[0] = value
         elif key == 'HobbyProgrammer':
             test_command_users_count[1] += value
+            commands_list[1] = value
         elif key == 'Student':
             test_command_users_count[2] += value
+            commands_list[2] = value
         elif key == 'ResearcherAcademic':
             test_command_users_count[3] += value
+            commands_list[3] = value
         elif key == 'ResearcherIndustry':
             test_command_users_count[4] += value
+            commands_list[4] = value
         elif key == 'SoftwareEngineer':
             test_command_users_count[5] += value
+            commands_list[5] = value
+    test_commands_count.append(commands_list)
 test_commands_percentage = (test_commands_total / total_count) * 100
 print("Test Command Users count: ", test_command_users_count)
 print("Test command total count: ", test_commands_total)
@@ -374,24 +484,11 @@ percentages = [unknown_commands_percentage, build_commands_percentage, debug_com
                nav_commands_percentage, test_commands_percentage]
 
 categories = ['Build', 'Debug', 'Completion', 'Documents', 'Find', 'Solution', 'Window', 'VC', 'Nav', 'Test']
-
-categories_list = [build_commands, debug_commands,
-                   completion_commands, documents_commands, find_commands,
-                   solution_commands, window_commands, version_control_commands,
-                   navigation_commands, test_commands]
-
-categories_users_count = [build_command_users_count, debug_command_users_count,
-                          completion_command_users_count, documents_command_users_count, find_command_users_count,
-                          solution_command_users_count, window_command_users_count, vc_command_users_count,
-                          nav_command_users_count, test_command_users_count]
-
 categories_total_counts = [build_commands_total, debug_commands_total,
                            completion_commands_total, documents_commands_total, find_commands_total,
                            solution_commands_total, window_commands_total, vc_commands_total,
                            nav_commands_total, test_commands_total]
 
-rando = [category[1] for category in categories_users_count]
-print("TESTSTSTS:    ", rando)
 total_percentage = 0
 for percentage in percentages:
     total_percentage += percentage
@@ -403,12 +500,12 @@ print(categories_total_counts)
 data_file.close()
 
 # create data frame
-raw_data = {'command': categories,
-            'HobbyProgrammer': [category[1] for category in categories_users_count],
-            'Student': [category[2] for category in categories_users_count],
-            'ResearcherAcademic': [category[3] for category in categories_users_count],
-            'ResearcherIndustry': [category[4] for category in categories_users_count],
-            'SoftwareEngineer': [category[5] for category in categories_users_count]}
+raw_data = {'command': completion_commands,
+            'HobbyProgrammer': [category[1] for category in completion_commands_count],
+            'Student': [category[2] for category in completion_commands_count],
+            'ResearcherAcademic': [category[3] for category in completion_commands_count],
+            'ResearcherIndustry': [category[4] for category in completion_commands_count],
+            'SoftwareEngineer': [category[5] for category in completion_commands_count]}
 df = pd.DataFrame(raw_data,
                   columns=['command', 'HobbyProgrammer', 'Student', 'ResearcherAcademic', 'ResearcherIndustry',
                            'SoftwareEngineer'])
@@ -488,7 +585,7 @@ plt.bar([p + width * 4 for p in pos],
 ax.set_ylabel('Counts')
 
 # Set the chart's title
-ax.set_title('Total Counts of Commands per Category')
+ax.set_title('Total Counts of Commands for Completion events')
 
 # Set the position of the x ticks
 ax.set_xticks([p + 1.5 * width for p in pos])
@@ -496,12 +593,11 @@ ax.set_xticks([p + 1.5 * width for p in pos])
 # Set the labels for the x ticks
 ax.set_xticklabels(df['command'])
 plt.setp(ax.get_xticklabels(), rotation=20, horizontalalignment='right')
-
 # Setting the x-axis and y-axis limits
 plt.xlim(min(pos) - width, max(pos) + width * 5)
 # plt.ylim([0, max(df['HobbyProgrammer'] + df['Student'] + df['ResearcherAcademic'] + df['ResearcherIndustry'] + df[
 #     'SoftwareEngineer'])])
-plt.ylim([0, 300000])
+plt.ylim([0, 100000])
 
 # Adding the legend and showing the plot
 plt.legend(['HobbyProgrammer', 'Student', 'ResearcherAcademic', 'ResearcherIndustry', 'SoftwareEngineer'],
