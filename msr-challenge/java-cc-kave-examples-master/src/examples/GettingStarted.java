@@ -96,20 +96,30 @@ public class GettingStarted {
 	
 	public static Positions currentUserPosition = Positions.Unknown;
 	
+	public static EnumMap<Positions, Long> peopleCount = new EnumMap<Positions, Long>(Positions.class);
+	public static boolean countDevsOnly = true;
+	
+	
 	public GettingStarted(String eventsDir) {
 		this.eventsDir = eventsDir;
 	}
 
 	public void run() {
 		
-		for(MSRCommandType c : MSRCommandType.values()) {
-			EnumMap<Positions, BigInteger> temp = new EnumMap<Positions, BigInteger>(Positions.class);
-			for(Positions p : Positions.values()) {
-				temp.put(p, new BigInteger("0"));
+		if(!countDevsOnly) {
+			for(MSRCommandType c : MSRCommandType.values()) {
+				EnumMap<Positions, BigInteger> temp = new EnumMap<Positions, BigInteger>(Positions.class);
+				for(Positions p : Positions.values()) {
+					temp.put(p, new BigInteger("0"));
+				}
+				outputTable.put(c, temp);
 			}
-			outputTable.put(c, temp);
 		}
-
+		
+		for(Positions p : Positions.values()) {
+			peopleCount.put(p, (long) 0);
+		}
+		
 		System.out.printf("looking (recursively) for events in folder %s\n", new File(eventsDir).getAbsolutePath());
 
 		/*
@@ -121,17 +131,23 @@ public class GettingStarted {
 
 		for (String userZip : userZips) {
 			currentUserPosition = Positions.Unknown;
-			currentUserTable = new EnumMap<MSRCommandType, EnumMap<Positions, BigInteger>>(MSRCommandType.class);
-			for(MSRCommandType c : MSRCommandType.values()) {
-				EnumMap<Positions, BigInteger> temp = new EnumMap<Positions, BigInteger>(Positions.class);
-				for(Positions p : Positions.values()) {
-					temp.put(p, new BigInteger("0"));
-				}
-				currentUserTable.put(c, temp);
-			}			
+			if(!countDevsOnly) {
+				currentUserTable = new EnumMap<MSRCommandType, EnumMap<Positions, BigInteger>>(MSRCommandType.class);
+			
+				for(MSRCommandType c : MSRCommandType.values()) {
+					EnumMap<Positions, BigInteger> temp = new EnumMap<Positions, BigInteger>(Positions.class);
+					for(Positions p : Positions.values()) {
+						temp.put(p, new BigInteger("0"));
+					}
+					currentUserTable.put(c, temp);
+				}			
+			}
 			System.out.printf("\n#### processing user zip: %s #####\n", userZip);
 			processUserZip(userZip);
-			copyCurrentUserTableToOutput();
+			if(!countDevsOnly) {
+				copyCurrentUserTableToOutput();
+			}
+			peopleCount.put(currentUserPosition, 1 + peopleCount.get(currentUserPosition));
 		}
 		/**
 		try {
@@ -145,8 +161,11 @@ public class GettingStarted {
 		}
 		*/
 		try {
-			Files.write(Paths.get("output.txt"), outputTable.toString().getBytes());
-			System.out.println("Done writing to file!");
+			if(!countDevsOnly) {
+				Files.write(Paths.get("output.txt"), outputTable.toString().getBytes());
+				System.out.println("Done writing to file!");
+			}
+			System.out.println(peopleCount);
 		} catch (Exception e) {
 			System.err.println("Error trying to output the sets to files.\nException " + e);
 		}		
@@ -229,28 +248,35 @@ public class GettingStarted {
 //		}
 /*		if (e instanceof CommandEvent) {
 			process((CommandEvent) e);
-		} else*/ if (e instanceof BuildEvent) {
-			process((BuildEvent) e);
-		} else if (e instanceof DebuggerEvent) {
-			process((DebuggerEvent) e);
-		} else if (e instanceof UserProfileEvent) {
-			process((UserProfileEvent) e);
-		} else if (e instanceof CompletionEvent) {
-			process((CompletionEvent) e);
-		} else if (e instanceof DocumentEvent) {
-			process((DocumentEvent) e);
-		} else if (e instanceof FindEvent) {
-			process((FindEvent) e);
-		} else if (e instanceof SolutionEvent) {
-			process((SolutionEvent) e);
-		} else if (e instanceof WindowEvent) {
-			process((WindowEvent) e);
-		} else if (e instanceof VersionControlEvent) {
-			process((VersionControlEvent) e);
-		} else if (e instanceof NavigationEvent) {
-			process((NavigationEvent) e);
-		} else if (e instanceof TestRunEvent) {
-			process((TestRunEvent) e);
+		} else*/ 
+		if(!countDevsOnly) {
+			if (e instanceof BuildEvent) {
+				process((BuildEvent) e);
+			} else if (e instanceof DebuggerEvent) {
+				process((DebuggerEvent) e);
+			} else if (e instanceof UserProfileEvent) {
+				process((UserProfileEvent) e);
+			} else if (e instanceof CompletionEvent) {
+				process((CompletionEvent) e);
+			} else if (e instanceof DocumentEvent) {
+				process((DocumentEvent) e);
+			} else if (e instanceof FindEvent) {
+				process((FindEvent) e);
+			} else if (e instanceof SolutionEvent) {
+				process((SolutionEvent) e);
+			} else if (e instanceof WindowEvent) {
+				process((WindowEvent) e);
+			} else if (e instanceof VersionControlEvent) {
+				process((VersionControlEvent) e);
+			} else if (e instanceof NavigationEvent) {
+				process((NavigationEvent) e);
+			} else if (e instanceof TestRunEvent) {
+				process((TestRunEvent) e);
+			}
+		} else {
+			if (e instanceof UserProfileEvent) {
+				process((UserProfileEvent) e);
+			}
 		}
 
 	}
@@ -260,7 +286,9 @@ public class GettingStarted {
 			if (e.Position != currentUserPosition) {
 				Positions old = currentUserPosition;
 				currentUserPosition = e.Position;
-				remakeCurrentUserOutputMap(old);
+				if(!countDevsOnly) {
+					remakeCurrentUserOutputMap(old);
+				}
 			}
 		}
 	}

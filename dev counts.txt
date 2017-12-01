@@ -1,0 +1,3 @@
+{Unknown=27, HobbyProgrammer=6, Student=5, ResearcherAcademic=2, ResearcherIndustry=1, SoftwareEngineer=44}
+Total execution time: 3000923574194 ns
+
